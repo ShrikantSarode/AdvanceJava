@@ -67,4 +67,88 @@ public class ResturantDao implements DaoInterface<Resturant, Integer> {
 		}
 		return foundResturant;
 	}
+
+	// use to insert the records
+	@Override
+	public void create(Resturant newRestaurant) {
+
+		// This method accepts a 'Restaurant' object: newRestaurant and stores it as a
+		// record in the db table.
+
+		String sqlQuery = "insert into restaurant_master values(?,?,?,?)";// parameterized query passed by
+																			// PreparedStatement
+		try (Connection conn = JdbcUtils.getConnection(); PreparedStatement psmt = conn.prepareStatement(sqlQuery);
+
+		) {
+			// Extracting the values from Restaurant object:newRestaurant using getter
+			// methods
+			int restaurantId = newRestaurant.getResturantId();
+			String restauratName = newRestaurant.getName();
+			String restauratCuisine = newRestaurant.getCuisine();
+			int restauratCount = newRestaurant.getBranchCount();
+			// substituting these values in place of '?' using PreparedStatement
+			psmt.setInt(1, restaurantId);
+			psmt.setString(2, restauratName);
+			psmt.setString(3, restauratCuisine);
+			psmt.setInt(4, restauratCount);
+			int updateCount = psmt.executeUpdate();
+			System.out.println(updateCount + "record Inserted. :)");
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// to update record
+	@Override
+	public void update(Resturant modifiedRestaurant) {
+		// This method receives the modifed state of the Restaurant object:
+		// modifiedRestaurant and reflects that state into DB.
+		String sqlOuery = "update restaurant_master set rest_name=?,rest_cuisine=?,rest_branch_count=? where rest_id=?";
+
+		try (Connection conn = JdbcUtils.getConnection(); PreparedStatement psmt = conn.prepareStatement(sqlOuery);
+
+		) {
+			// Capturing the modified state of Restaurant objext:modifiedRestaurant using
+			// getter methods
+			int restaurantId = modifiedRestaurant.getResturantId();
+			String restauratName = modifiedRestaurant.getName();
+			String restauratCuisine = modifiedRestaurant.getCuisine();
+			int restauratCount = modifiedRestaurant.getBranchCount();
+			// substituting these values in place of '?' using PreparedStatement
+			psmt.setInt(4, restaurantId);
+			psmt.setString(1, restauratName);
+			psmt.setString(2, restauratCuisine);
+			psmt.setInt(3, restauratCount);
+			int updateCount = psmt.executeUpdate();
+			System.out.println(updateCount + "record Updated. :)");
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// use to delete record
+	@Override
+	public void delete(Integer id) {
+		// This method performs record deletion against identity
+		String sqlQuery = "delete from restaurant_master where rest_id=?";
+
+		try (Connection conn = JdbcUtils.getConnection(); PreparedStatement psmt = conn.prepareStatement(sqlQuery);
+
+		) {
+			psmt.setInt(1, id);
+			int UpdateCount = psmt.executeUpdate();
+			System.out.println(UpdateCount + " record Deleted :)");
+		}
+
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 }
