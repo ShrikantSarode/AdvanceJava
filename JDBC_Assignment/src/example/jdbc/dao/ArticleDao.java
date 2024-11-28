@@ -1,14 +1,15 @@
 package example.jdbc.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 
 import example.jdbc.bean.Article;
-import example.jdbc.bean.Article.Category;
+
 import example.jdbc.utils.JdbcUtils;
 
 public class ArticleDao implements DaoInterface<Article, Integer> {
@@ -30,9 +31,7 @@ public class ArticleDao implements DaoInterface<Article, Integer> {
 				Date article_dateCreated = rs.getDate(4);
 				String article_creatorName = rs.getString(5);
 
-				Category article_CategoryEnum = Category.valueOf(article_Category.toUpperCase());
-
-				Article art = new Article(article_Id, article_Name, article_CategoryEnum, article_dateCreated,
+				Article art = new Article(article_Id, article_Name, article_Category, article_dateCreated,
 						article_creatorName);
 				allArticles.add(art);
 			}
@@ -41,5 +40,31 @@ public class ArticleDao implements DaoInterface<Article, Integer> {
 		}
 
 		return allArticles;
+	}
+
+	@Override
+	public Article retrieveOne(Integer id) {
+		Article foundArticle = null;
+		String sqlQuery = "select * from article_master where art_id=?";
+		try (Connection conn = JdbcUtils.getConnection(); PreparedStatement psmt = conn.prepareStatement(sqlQuery);
+
+		) {
+			psmt.setInt(1, id);
+			ResultSet rs = psmt.executeQuery();
+			if (rs.next()) {
+
+				int article_Id = rs.getInt(1);
+				String article_Name = rs.getString(2);
+				String article_Category = rs.getString(3);
+				Date article_dateCreated = rs.getDate(4);
+				String article_creatorName = rs.getString(5);
+				foundArticle = new Article(article_Id, article_Name, article_Category, article_dateCreated,
+						article_creatorName);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return foundArticle;
 	}
 }
