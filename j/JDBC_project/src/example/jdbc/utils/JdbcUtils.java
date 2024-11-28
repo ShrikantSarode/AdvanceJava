@@ -10,7 +10,6 @@ public class JdbcUtils {
 
 		// Here, 'Class.forName()' is not used because it is not needed/
 		// The driver gets loaded automatically.
-		Class.forName("com.mysql.cj.jdbc.Driver");
 		String url = "jdbc:mysql://localhost:3306/zomato";
 		String uid = "root";
 		String pwd = "password";

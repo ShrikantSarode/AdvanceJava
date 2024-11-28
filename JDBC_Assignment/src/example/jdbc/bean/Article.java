@@ -5,16 +5,20 @@ import java.sql.Date;
 public class Article {
 	private int id;
 	private String name;
-	private Enum category;
+	private Category category;
 	private Date dateCreated;
 	private String creatorName;
+
+	public enum Category {
+		PAINTING, SCULPTURE, ARTIFACT;
+	}
 
 	public Article() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Article(int id, String name, Enum category, Date dateCreated, String creatorName) {
+	public Article(int id, String name, Category category, Date dateCreated, String creatorName) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,11 +43,11 @@ public class Article {
 		this.name = name;
 	}
 
-	public Enum getCategory() {
+	public Category getCategory() {
 		return category;
 	}
 
-	public void setCategory(Enum category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 

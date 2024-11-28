@@ -9,24 +9,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * Servlet implementation class GreetServlet
+ * Servlet implementation class myServlet
  */
-public class GreetServlet extends HttpServlet {
+
+@WebServlet("/greet")
+public class myServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	@Override
-	public void init() {
-		System.out.println("Inside init()");
-	}
-
-
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		System.out.println("Inside doGet()");
 		// This method gets invoked when the serlvet is requested.
 		// This method is sending html response back to client.
@@ -42,8 +39,5 @@ public class GreetServlet extends HttpServlet {
 		// Sending the response
 		out.println(responseText);
 	}
-	@Override
-	public void destroy() {
-		System.out.println("Inside destroy()");
-	}
+
 }
