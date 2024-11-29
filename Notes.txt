@@ -1,0 +1,638 @@
+Web Based Java	(26-11-2024)
+	1. JDBC
+	2. Servlet and JSP
+	3. Java Frameworks - Hibernate, Spring
+	4. REST APIs using Spring Boot
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+JDBC: 
+	-stands for Java to Database Connectivity.
+	-It is an API(Application Programming Interface) which allows Java applications to interact with DB.
+	-Like Java, every DB Vendor also provides its own API which is known as Vendor Specific API.
+	-It simplifies access for all the clients who want to interact with DB.
+	-Since both APIs are written as per their standards, there are conflicts. These conflicts can be resolved using a mediator known as JDBC Driver.
+	-Driver is a program which converts JDBC calls into some format which is understood by Vendor Specific API.
+	-Typically, JDBC Drivers are of 4 types:
+		-Type 1 : 
+			-It is called as JDBC - ODBC bridge.
+			-It uses a third party library, ODBC(Open Database Connectivity) which is provided by Microsoft.
+			-It converts JDBC calls into some format which is understood by ODBC.
+			-It is not much recommended in large scale applications or even production environment because of following limitations : 
+				a) It is the slowest.
+				b) It is Platform Dependent - (specific to windows).
+				c) Every client machine needs ODBC configuration setup.
+		-Type 2 : 
+			-It is called as Native API, Partly Java Driver.
+			-It is a combination of Java and DB Vendor Specific implementation.
+			-It does not use any third party library.
+			-Benefits over Type 1:
+				a) It is faster.
+				b) It is platform independent.
+			-Limitation : 
+				-Since it uses DB Specific Native API for communication, every client machine must have this API installed.
+		-Type 3 :
+			-It is called as intermediate DB Access Server.
+			-It is completely different from other drivers.
+			-It is used especially when a client program wants to interact with multiple database servers.
+			-It uses a middleware known as Intermediate DB Access Server which acts as a router.
+		-Type 4 :
+			-It is called as Vendor Specific, Pure Java Driver.
+			-Every DB Vendor provides its own driver for its Database.
+			-It uses TCP Socket connection for communication.
+			-Benefits : 
+				a) It is the fastest.
+				b) It is platform independent.
+				c) It does not require any configuration setup on client machine.
+			-It is highly recommended for production environment and even for large scale applications.
+----------------------------------------------------------------------------------------------------------------------------------
+Getting started : 
+	In order to write any JDBC program there are certain steps to be followed : 
+		i. Load the driver.
+		ii. Establish connection with DB.
+		iii. Obtain some statement.
+		iv. Execute SQL Query. 
+		v. In case of SELECT query, obtain ResultSet(Record set) and perform navigation.
+
+Exploring JDBC API : 
+	-Java language provides JDBC API through 'java.sql' package.
+	-It mainly provides following : 
+		1. Driver (interface)
+		2. DriverManager (class)
+		3. Connection (interface)
+		4. Statement (interface)
+		5. PreparedStatement (interface)
+		6. CallableStatement (interface)
+		7. ResultSet (interface)
+
+Implementing JDBC steps : 
+	i. Load the driver : 
+		-Every JDBC specific driver is implemented using a Java class.
+		-Therefore, loading the driver means loading the driver specific Java class.
+		-This is done using 'forName()' method of 'Class' class.
+		-In case of Type 4 driver, the driver specific class must be added into project's build path because it is not provided by JDK; rather it is provided by DB Vendor.
+		
+	ii. Establish Connection : 
+		-In  order to establish connection, three properties are used  :
+			a) Connection String (URL)
+			b) User ID
+			c) Password
+		-Based upon these properties a connection can be established using 'getConnection()' method of 'DriverManager' class.
+		
+	iii. Obtain some statement : 
+		-In order to execute SQL query, some type of statement is required.
+ 		-The type of statement depends upon the type of SQL query.
+		-The SQL query is mainly of 2 types : 
+			1. Simple query(Query without parameter).
+			2. Parameterized query.
+		-In case of simple query, 'Statement' is used.
+		-It is obtained using 'createStatement()' method of 'Connection' interface.
+
+	iv. Execute SQL query : 
+		-Once 'Statement' is obtained, it can be used to execute SQL query.
+		-If the query to be fired  is a SELECT query, it is done using 'executeQuery()' method of 'Statement'.
+
+	v. Obtain ResultSet and Perform Navigation : 
+		-The 'executeQuery()' method of 'Statement' returns a reference of type 'ResultSet'.
+		-ResultSet is the representation of the data populated from database on client side.
+		-Just like DB table, it contains rows and columns. 
+		-Every row has record position and every columns has column index.
+		-Both of them start from 1.
+		-Apart from actual record positions, there are two additional positions available : Before First and After Last.
+		-By default, the ResultSet cursor points to Before First.
+		-In order to perform navigation, it is necessary to shift the cursor in the forward direction. This is done using 'next()' method of 'ResultSet'.
+		-To read the actual value, 'ResultSet' provides several getter methods. 
+			e.g., 
+			To read String, getString()  and to read 'int', getInt()
+		-These methods accept column index as a parameter.
+		-The column index depends upon the SQL query fired and not upon the original table design.
+------------------------------------------------------------------------------------------------------------------------------------
+JDBC URL: 
+	The JDBC URL is mainly divided into five parts : 
+		1. Main Protocol - 
+			It is the main protocol and for all JDBC URLs, it is always 'jdbc'.
+		2. Sub Protocol -
+			It is the protocol which differs from DB to DB.
+		3. IP Address - 
+			It is the IP Address of the machine on which DB server is running.
+			If the same machine is used for client and server, then it is to be mentioned as 'localhost/127.0.0.1'.
+		4. Port Number - 
+			It is the unique identifier on which the server gets started.
+			e.g., 
+			In case of MySQL, it is 3306 whereas for Oracle, it is 1521.
+		5. Schema/Service Name - 
+			It is the name of the DB Schema(MySQL) or service(Oracle).
+------------------------------------------------------------------------------------------------------------------------------------
+Stored Procedure : 
+	While writing JDBC code, it is always better to follow Standard Programing Practices.
+	1) Auto-Loading of JDBC Driver : 
+		It s a feature introduced by Java version 6 which allows to automatic loading of driver implementation class once it is found in the build path.
+
+	2) Decoupling the code for establishing connection : 
+		Since connection is required to perform any operation with DB, it is always better to decouple(seperate) the code for obtaining connection using a seperate class. 
+
+	3) Auto-Closing of resources : 
+		Since all JDBC resources are extension to java.lang AutoCloseable, they can be opened using try-with-resources construct so that they can be closed of their own.
+
+	4) Implementing DAO Pattern : 
+		DAO stands for Data Access Object. It is a commonly used design pattern for performing CRUD operations.
+		It starts with a generic interface and the implementation class specifies the actual type.
+-------------------------------------------------------------------------------------------------------------------------------------
+Parameterized Query : 
+	-A query may have one or many parameters. In order to work with parameterized query, 'PreparedStatement' is to be used.
+	-Even though a query is a parameterized query still it can be fired using a 'Statement' but when the same query is fired repeatedly with different set of values, a new query is formed and compiled.
+	-This leads to performance implications. Therefore 'PreparedStatement' is preffered because it caches the query and the query gets compiled only once.
+	-The reference of 'PreparedStatement' is obtained using 'prepareStatement()' method of 'Connection' interface.
+	-Once the query is created it is necessary to substitute values to its unknown parameters.
+	-Every unknown parameter has an index which starts from 1 and increments by 1; moving from left to right.
+	-To substitute value, 'PreparedStatement' provides setter methods.
+------------------------------------------------------------------------------------------------------------------------------------
+Performing DML operations :  	(27-11-2024)
+	-DML operations involve INSERT, UPDATE and DELETE SQL queries.
+	-These operations do not return any data; rather change the state of the data.
+	-Therefore, in case of DML operations, 'ResultSet' is not required.
+	-However, in order to perform the operation, it is necessary to make a JDBC call.
+	-In case of DML queries, it is done using 'executeUpdate()' method.
+	-The method returns 'int' which indicates the number of records affected due to that query.
+------------------------------------------------------------------------------------------------------------------------------------
+Performing DML UPDATE : 
+	-In order to perform DML UPDATE, first it is necessary to load the data on which UPDATE is required.
+	-Typically this is done against Identity.
+	-Once the object is loaded, any times its state can be changed using setter methods.
+	-Once the state is changed, it needs to be reflected back to DB for completing the DML UPDATE.
+------------------------------------------------------------------------------------------------------------------------------------
+Type of Statements : 
+	-In order to make a JDBC call towards database, some type of Statement is required.
+	-Statements in JDBC are of three types : 
+		1. Statement :
+			-It is a super-interface.
+			-It is used to execute simple queries. (Query without parameters)
+			e.g.,
+				stmt.executeQuery("select * from restaurent_master");
+				stmt.executeUpdate("delete from restaurent_master");
+
+		2. PreparedStatement : 
+			-It is a sub-interface of 'Statement'.
+			-It is used to execute parameterized queries.
+			-It creates the query only once and caches the same.
+			-This allows execute same query repeatedly with different set of parameter values without hampering the performance.
+
+		3. CallableStatement : 
+			-It is a sub-interface of 'PreparedStatement'.
+			-It is used to invoke stored procedures available on DB side.
+------------------------------------------------------------------------------------------------------------------------------------
+Transaction Management : 
+	-In any business application, Transaction Management is an important activity.
+	
+	What is Transaction? 
+	 Transaction is a set of operations that must execute in a single unit.
+	
+	-Transactions must be atomic (Execute All or None) otherwise the data is left in inconsistent state.
+	-Whenever, any DML operations is performed from Java towards DB, by default it gets commited. Therefore, it is not possible to rollback the transaction even if it is required.
+	-This causes the problem of data inconsistency.
+	-Therefore, it is necessary to disable 'auto-commit'.
+	-'Connection' interface provides relevant methods for Transaction Management.
+		1) setAutoCommit(boolean)
+		2) commit()
+		3) rollback()
+	
+	-To disable 'auto-commit', invoke setAutoCommit(false).
+	-Once it is disabled, changes can be commited by using 'commit()' and rollback using 'rollback()'.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Jakarta EE (Java EE (J2EE))
+	-Java language is designed for building vaious types of business applications.
+	e.g.,
+	Desktop Applications
+	Simple Network based Applications
+	Web Based Applications
+	Mobile Based Applications
+	
+	-However, to develop different types of applications, Java provides its variants (platforms) :
+		1. Java SE (Java Standard Edition)
+		2. Java EE (Java Enterprise Edition) => Jakarta Enterprise Edition
+		3. Java ME (Java Micro Edition) (Outdated because of Android)
+		
+	-Java SE platform can be used for developing Desktop or Simple N/W based applications.
+	-For developing web applications, Java EE (Jakarta EE) platform has to be used.
+	
+	What is Jakarta EE?
+		It is a platform meant for developing web as well as enterprise level applications.
+	What is web application?
+		Any application that is accessed via web browser is a web application.
+	What is enterprise application?
+		Any web application that is integrated with enterprise services is called as enterprise applications.
+	-Enterprise services are the higher end services required to be integrated with the application.
+	Higher End Services :
+		1. Scalability
+		2. Availability
+		3. Persistency
+		4. Transaction Management
+		5. Security
+		6. Asynchronous Messaging
+------------------------------------------------------------------------------------------------------------------------------------
+Jakarta EE Architecture : 
+	-Jakarta EE is based upon Component Driven Architecture.
+	
+	What is Component?
+		A component is an application level reusable piece of code. 
+		Types of components : 
+			1. Unmanaged : 
+				-When the components are required to be instantiated explicitly using 'new' keyword, then they are called as Unmanaged Components.
+				-Generally, Java SE platform involves Unmanaged components.
+			2. Managed : 
+				-When the components are not required to be instatntiated explicitly; rather they get instantiated implicitly, then they are called as Managed Components.
+				-Generally, Jakarta EE platform involves Managed components.
+			Types of Managed Components :
+				1. Web Component : 
+					When a component is responsible for accepting a Web Request and generating a Web Response, then that component is called as Web Component.
+				Types of web component : 
+					1. Servlet	
+					2. JSP
+				2. Business Component : 
+					When a component is responsible for handling a business logic (domain specific logic), then that component is called as Business Component.
+					It is taken care by EJB => Enterprise Java Beans.
+		How components are managed?
+			Components are managed using a runtime environment known as Container.
+-------------------------------------------------------------------------------------------------------------------------------------
+There are two types of containers : 
+	1. Web Container : 
+		It is a runtime environment responsible for managing web components like Servlet and JSP.
+	2. EJB Container : 
+		It is a runtime environment responsible for managing business components like EJB.
+	
+How containers are made available : 
+	-These containers are made available using third party softwares known as servers.
+	-Since containers are of two types, servers are also of two types : 
+		1. Web Server : 
+			-It provides a web container which can manage web components like Servlet and JSP.
+			-There are several web servers available in market but the most commonly used is Tomcat by Apache Software Foundation.
+
+		2. Application Server : 
+			-It is an extension to Web Server.
+			-It provied Web Container as well as EJB container.
+			-There are several application servers available in market.
+			e.g., WebLogic by Oracle Corporation
+				WebSphere by IBM
+				JBoss by RedHat
+				GlassFish by Oracle Corporation
+				WildFly by RedHat
+-------------------------------------------------------------------------------------------------------------------------------------
+Servlet : 
+	What is Servlet? 
+		Servlet is a web component used to extend the functionality of web server.
+	
+	-It runs on server side and therefore can be used to handle server side processing.
+	-It can be used to generate dynamic web contents.
+	
+	Why Servlets became popular?
+		There are several technologies available which handle same task as that of servlet however servlets got wide acceptance.
+		Servlets are written in Java and therefore they inherit all the features of Java.
+		e.g., Platform Independent
+			Robust
+			Secured
+			Multithreaded
+			Portable
+			Architecture Neutral
+	-Servlets are light-weight. Every request is processed in a seperate thread. 
+	
+	Implementing Servlets : 
+		-Servlets are implemented using a Java class which is called as Servlet Implementation Class.
+		-This class must make use of some API known as Servlet API.
+		-The Servlet API mainly consists of two packages :
+			1. jakarta.servlet
+			2. jakarta.servlet.http
+		-The 'jakarta.servlet' package mainly provides following : 
+			1. Servlet (Interface)
+			2. GenericServlet (Class)
+			3. ServletRequest (Interface)
+			4. ServletResponse (Interface)
+
+		-The 'jakarta.servlet.http' package mainly provides following : 
+			1. HttpServlet (Class)
+			2. HttpServletRequest (Interface)
+			3. HttpServletResponse (Interface)
+	HTTP Basics : 
+		-It stands for HyperText Transfer Protocol.
+		-It is most commonly used in web application.
+		
+	A protocol is of two types : 
+		1. Stateless :
+			When a protocol cannot maintain conversational state between two requests it is called as Statless Protocol.
+			e.g., HTTP
+		2. Stateful : 
+			When a protocol can maintain conversational state between two requests it is called as Statful Protocol.
+			e.g., FTP
+	Servlet Implementation Class : 
+		-There are 3 options to create a Servlet Implementation Class : 
+			1. Implement 'Servlet' interface :
+				This option is not much recommended because it enforces to override all the methods of the interface irrespective of whether they are in use of not.
+			2. Extend 'GenericServlet' class : 
+				This option is used for creating servlets that accept any type of request that means protocol independent.
+			3. Extend 'HttpServlet' class : 
+				This option is used for creating servlets those are specifically meant for accepting HTTP request and generating HTTP response.
+-------------------------------------------------------------------------------------------------------------------------------------
+Jakarta EE - A specification
+	Jakarta EE is a specification (set of rules) and not an implementation.
+	Implementation is provided by third-party softwares : 
+		Web Server and Application Server.
+
+	Servlet - First Example
+		1. Create Dynamic Web Project
+			a) Setup target runtime
+			b) Change the context root (if required)
+		2. Create a new Servlet
+			a) Create a servlet class
+			b) Change the Servlet Name, URL Mapping (if required)
+			c) Provide the logic for response generation in 'doGet()' method.
+		3. Deploy the application on Tomcat
+			Typically this is done by WAR (Web Archive) file and adding to the server.
+			It can be simplified by integrating the server with IDE.
+				"http://localhost:8888/Web_App/greet"
+------------------------------------------------------------------------------------------------------------------------------------
+URL Constituents : 	(28-11-2024)
+	The Servlet URL has following constituents : 
+		1) Protocol - It is always HTTP
+		2) IP Address - It is used to target the machine.
+					- If same machine is used for client and server, then it is 'localhost'.
+		3) Port Number - It is used to target the server (service).
+		4) Context Root - It is used to target the application deployed on the server.
+		5) Resource URL -It is used to target the actual resource of the application.
+			["http://localhost:8888/Web_App/greet"]
+------------------------------------------------------------------------------------------------------------------------------------
+Servlet Life Cycle : 
+	-The life cycle of servlet consist of three stages : 
+		1. Instantiation and Initialization :
+			-When the servlet is requested for the very first time, it gets loaded by Web Container and once the loading is finished, it gets instantiated (object created) by Web Container.
+			-After instantiation, web container invokes 'init()' method.
+			-This method can be used to perform initialization if any.
+			-After 'init()' is finished web container invokes 'service()' method.
+			-This method actually used to serve the client.
+		2. Service : 
+			-When the client makes the request to servlet, for every request web container calls/invokes 'service()' method.
+		3. Destroy :
+			-When the web server is stopped or the application is undeployed from server, web container decides to remove the instance from memory. During this, it invokes 'destroy()' method.
+			-Like init(), this method is called only once.
+	-These stages are taken care by relevant methods which are known as life cycle methods.
+	-Since there are three stages, there are three life cycle methods : 
+		1. init()
+		2. service()
+		3. destroy()
+
+	-How 'service()' and 'doGet()' are inter-linked?
+		All the three life cycle methods are already implemented in the super classes : HttpServlet(service()) and GenericServlet(init() and destroy()).
+		(** GenericServlet is a super class of HttpServlet)
+
+	-When the servlet is requested, every time service() method gets invoked.
+	-The service() method available in HttpServlet class identifies the type of incoming HTTP request.
+	-HTTP request is of several types : 
+		1. GET
+		2. POST
+		3. PUT
+		4. DELETE
+		5. HEAD
+		6. OPTIONS
+		7. TRACE
+
+	-Once the type is identified, it invokes respective 'doXXX()' method from 'HttpServlet' class.
+	e.g., GET  	=> 	doGet()
+		POST 	=> 	doPost()
+
+	-In order to customize the implementation these methods need to be overridden in the sub class.
+	-When the server is requested by typing its URL in browser's address bar, always HTTP GET request is made.
+------------------------------------------------------------------------------------------------------------------------------------
+Requesting a servlet : 
+	A servlet can be requested using several options :
+		1. Using Browser's address bar.
+		2. Using HTML anchor tag : '<a>'
+		3. Using HTML Form : '<form>'
+		4. Using an Applet (outdated)
+		5. Using another Servlet 
+		6. Using JSP
+-------------------------------------------------------------------------------------------------------------------------------------
+HTML Form Processing : 
+	-In web applications, accepting data from end user using HTML form is a very common requirement.
+	-Whatever data is entered by user is needs to be processed on server side and generate the response accordingly.
+	-This technique is known as HTML form processing.
+		(
+			Servlets can be configured by two ways : 
+				1. web.xml
+					(Mandatory till version 2.5 version 3.0 onwards optional)
+				2. @WebServlet annotation
+		)
+	-When client makes a request by providing some input, that data is sent towards server via HTTP request.
+	-That data is known as request parameter. It is in the form of name-value pair. 
+	-In order to capture this data, 'HttpServletRequest' object is used.
+	-It provides a method : String getParameter(String)
+					     <value>	            <name>
+	-HTML Form and GET Request :
+		-When data is sent towards servlet via HTML form, by default always HTTP GET request is made.
+		-In case of GET request, parameters are appended to the URL using '?' notation. They are seperated using '&' notation. 
+		-Since they are directly exposed, it leads to secure concerns.
+		-Therefore, in order to avoid such things, HTTP POST request is used.
+		-To make POST request, use "method = 'post'" setting for HTML <form> element.
+		
+		-HTTP GET Vs HTTP POST
+		1. In case of GET request, parameters are appended to the URL whereas in case of POST, they are sent along with page body.
+		2. There is a limitation on URL length in case of GET request(255 charecters) whereas there is no limitation in case of POST.
+		3. There is a limitation on data transfer in case of GET request(8 KB) whereas there is no limitation in case of POST.
+---------------------------------------------------------------------------------------------------------------
+Collaboration :
+	-When two components of same web applications are interacting with each other, then that process is known as Collaboration.
+	-This brings two benefits : 
+		1. Modularity
+		2. Re-usability
+	-In order to handle collaboration, servlet API provides an interface : 
+		jakarta.servlet.RequestDispatcher
+	-'RequestDispatcher' provides 2 methods : 
+		1. forward() : Forwards the control to the next resource and that next resource generates the response.
+		2. include() : Forwards the control to the next resource, takes the response from that resource, comes back to the previous resource and the previous resource generates the response.
+	-In order to invoke these methods, it is necessary to obtain the reference of 'RequestDispatcher'.
+	-It is done using 'jakarta.servlet.ServletRequest' interface.
+	-It provides 'getRequestDispatcher()' method.
+	-When a request is forwarded from one servlet to another, the original request parameters are also propagated to the next servlet. They can be captured using 'getParameter()' method.
+	-In addition to original request parameter, intermediate servlet may attach additional request parameters in the current request.
+	-This is done using 'setAttribute()' method. 
+	-In the next servlet, this additional parameter must be obtained using 'getAttribute()' method.
+-------------------------------------------------------------------------------------------------------------------------
+Other Resources in Web Application :		(29-11-2024)
+	-Apart from HttpServletRequest and HttpServletResponse, there are ohter resources available in web application. All these are interface.
+	1. jakarta.servlet.ServletConfig :
+		-It is used to maintain servlet's configuration specifc information. 
+		-It mainly contains initialization parameters if any.
+		-Its object is created for every servlet.
+	
+	2. jakarta.servlet.ServletContext :
+		-It is used to maintain application level information.
+		-Its object is created for the whole application.
+
+	3. jakarta.servlet.http.HttpSession : 
+		-It is used to maintain session level (user level) information.
+		-It is used for session management.
+		-Its object is created for every user.
+-------------------------------------------------------------------------------------------------------------------------
+Session Management : 
+	-HTTP is a stateless protocol. It does not maintain any conversational state along with the client.
+	-In a web application, to perform some transaction e.g. Ticket booking, Food order booking,... client has to make multiple request towards server. Server has to maintain state for every client.
+	-Maintaining the state for every client is known as session management or session tracking.
+	-For every client a session must be available. It is used to maintain a client specific information.
+	-There are four options available for session mananagement :
+		1. URL Encoding
+		2. Hidden Form Fields
+		3. Cookies
+		4. Servlet API
+ 
+	-Using HtttpSession : 
+		-The object of type 'HttpSession' is used to maintain client specific information(state).
+		-It is obtained using 'getSession()' method from : HttpServletRequest
+		-This method checks whether the session for the corresponding user is available or not.	
+		-If not available, creates a new one and returns that.
+		-If avaialble, returns the existing one.
+		-The HttpSession inteface provides 'isNew()' method to check whether the session is already created or not.
+		
+	How HttpSession works?
+		-When a call is given to 'getSession()' method, it checks whether there is any cookie coming from client side or not.
+		-If there is no cookie available, it decides to create a new session.
+		-That means, it creates an object of type 'HttpSession'.
+		-Web Container also assigns a unique identity for the session which is called as session ID.
+		-Further, container stores the Session object along with its ID in some 'Map' based collection.
+		-It also creates a cookie and stores Session ID into that cookie.
+		-Once response is sent back to client, server sends that cookie as well.
+		-When the same client makes 2nd request, whatever cookie was received in the previous response, is sent back to server.
+		-This time, a call to 'getSession()' understands that there is a cookie which contains a Session ID. Therefore it does not create a new session.
+-------------------------------------------------------------------------------------------------------------------------
+HttpSession methods : 
+	isNew()					=>	Checks whether Session is new or not
+	setAttribute()				=>	Sets the attribute at Session level	
+	getAttribute()				=>	Gets the attribute from Session level
+	setMaxInactiveInterval()		=>	Specifies the time limit in terms of Sessions during which a client is 									supposed to make the request in order to retain the session; otherwise session expires.
+	invalidate()				=>	Forcefully terminates the session.
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+JSP :
+	-JSP stands for Jakarta Server Pages (Java Server Pages)
+	-JSP is a web component used to extend the functionality of web server.
+	-It runs on server side and therefore can be used to handle server side processing.
+	-It can be used to generate dynamic web contents.
+	
+	Why JSP?
+		-In a web application, there are mainly two roles : Web Developer & Web Designer
+		-Web Developer needs to be expert in logic whereas Web Designer needs to expert in presentation.
+		-JSP allows to emphasize upon presentation using Java capabilities but without writing a Java code.
+		-It looks more like HTML and less like Java.
+	
+	Life Cycle of JSP :
+		Like Servlet, JSP life cycle also has three stages and these stages are taken care by three life cycle methods : 
+			1. jspInit()
+			2. jspService()
+			3. jspDestroy()
+
+		-When the JSP is requested for the very 1st time, it is loaded by web container.
+		-Once the loading is finished, it is compiled and translated into servlet.
+		-The Java class for this servlet is also generated by web container.
+		-Web Container instantitates this Java class and invokes 'jspInit()'.
+		-Then it invokes _jspService().
+	-When the JSP is requested, every time _jspService() gest invoked.
+	-When the server stops or the application is undeployed, web container invokes jspDestroy().
+-------------------------------------------------------------------------------------------------------------------------
+JSP File Structure : 
+	A JSP file may contain a following code : 
+		1. HTML Tags
+		2. Any valid Java code
+		3. JSP Tags
+
+JSP Tags: 
+	JSP tags are divided into three categories : 
+		1. Directives : 
+			-They are denoted by '<%@......%>' delimiters.
+			-There are three types of directives : 
+				i. page - It is used to configure JSP page with the help of several attributes.
+					       e.g., language => used to specify scripting language. (Default : java, Possible : java)
+						       session	=> used to indicate whether page participates in session or not.
+										(Default : true, Possible : true/false)
+						        import	=> used to import  libraries from packages other than java.lang
+							errorPage	=> used to divert control to this page if the current page contains some java code which fires an exception.
+
+				ii. include - It is used to include resources in the existing JSP. It provies a 'file' attribute to include the resources. 
+				iii. taglib - It is used in the context of creating custom tags (user defined tags).
+
+		2. Scripting Elements : 
+			-These are associated with a Java code.
+			-They are of three types : 
+				1. Declaration - It is denoted by '<%! ......%>' delimiters.
+							   It is used to declare variables or define methods.
+				2. Scriptlet -  It is denoted by '<% ......%>' delimiters.
+						      It is used to write any valid java code.
+				3. Expression -  It is denoted by '<%=<<Expre>>%>' delimiters.
+							  It can be used for fetching variable's value, invoking methods and so on.
+			-Scripting Elements concepts : 
+				1. Whatever declarations are made using 'Declaration' section get processed directly at the class level of the servlet specific class generated by web container.
+				2. Whatever code is written inside a 'Scriptlet' gets processed within the _jspService() method of the servlet specific class.
+				    If a variable is declared inside a 'Scriptlet' it becomes a local variable to that method.
+				    It is not possible to define a method inside a scriptlet.
+				3. It is possible to invoke a method using 'Expression' only when its return type is other than 'void'.			
+	Implicit Objects : 
+		-In JSP, web container creates resource oriented objects and makes them available to page authors.
+		-These objects are called as Implicit Objects.
+			1. request	=>	jakarta.servlet.http.HttpServletRequest
+			2. response	=>	jakarta.servlet.http.HttpServletResponse
+			3. out		=>	jakarta.servlet.jsp.JspWriter
+			4. session	=>	jakarta.servlet.http.HttpSession(Not available if <%@page session="false"%>
+			5. config		=>	jakarta.servlet.ServletConfig
+			6. application	=>	jakarta.servlet.ServletContext
+
+		3. Standard Actions : 
+			-JSP specifications provides wide range of tags meant for handling standard operations; therefore these tags are also called as Standard Actions.
+			-All JSP Standard Actions follow a specific format : 
+				<prefix:suffix>
+			-All JSP Standard Actions have same prefix : 'jsp'.
+			-The 'suffix' is the actual tag name.
+	
+			1. <jsp:useBean>
+				-Allows to instantiate a Java Bean.
+				-It provides several attributes : 
+				a) id		:	Assigns an identity for the bean.
+				b) class	:	Specifies fully qualified name of the bean class.
+				c) type	:	Specifies fully qualified name of the super class or an interface.
+				d) scope	:	Specifies the scope of the bean	Possible Values : page, request, session, application.	Default : page
+			2. <jsp:setProperty>
+				-Allows to set values for the properties of the bean using setter methods.
+			3. <jsp:getProperty>
+				-Allows to get values of the properties of the bean using getter methods.
+
+	When <jsp:setProperty> standard action is used with setting : property="*", web container retrieves request parameter name and tries to match them with property names of the bean class.
+	-Once the match is found, container tries to find setter methods in the bean class following Java's naming convention.
+	-Once the methods are found, container invokes them.
+	-Whatever type conversion is required, that is also managed by web container.
+
+	When <jsp:getProperty> standard action is used, web container retrieves the property name and tries to find getter methods following Java's naming convention.
+	-Once found, it invokes them.
+
+Setting Property values : 
+	While setting values for the properties using '<jsp:setProperty>', there are several option available.
+		1. property="*"	:	used to set all the property values. In order to use this option, request parameter names must match with property names.
+		2. property="<<property-name>>"	:	used to set a specific property value. In order to use this option, request parameter name must match with property name.
+		3. property="<<property-name>>" param="<<param-name>>"	:	Allows to map property name with request parameter name.
+			e.g., property="age" param="t_age"
+		4. property="<<property-name>>" value="<<value>>"	:	Allows to assign a value directly. The value can be either a hard-coded value or derived using expression.
+			e.g., property="age" value="23"
+				OR
+				<%int myAge=23
+				   %>
+				property="age" value="<%=myAge%>"
+** Standard Actions: setProperty and getProperty must be used always in conjuction with useBean.
+
+Other Standard Actions : 
+	1. <jsp:forward>	:	Used to forward the request to the next resource. The next resource generates the response.
+		e.g., <jsp:forward page="next.jsp" />
+	2. <jsp:include>	:	Used to include the response of the next resource. The current resource generates the final response.
+		e.g., <jsp:include page="next.jsp" />
+
+<%@ include... %> Vs <jsp:include>
+	-The 'include' directive includes the resource at translation time where the 'include' action includes the resource at request time.
+	-Generally, 'include' directive is used to include static pages e.g., HTML whereas 'include' action is used to include dynamic pages e.g., JSP
+
+	3. <jsp:param>	:	Used to conjuction with either 'forward' or 'include' to send additional parameters.
+		e.g., <jsp:forward page="next.jsp" > 
+				<jsp:param name="..." value="..." />
+				<jsp:param name="..." value="..." />
+			</jsp:forward>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
