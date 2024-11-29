@@ -1,27 +1,19 @@
 package example.jdbc.bean;
 
-import java.sql.Date;
-
 public class Article {
 	private int id;
-	private String name;
+	private String title;
 	private String category;
-	private Date dateCreated;
-	private String creatorName;
+	private String date; // Store date as java.sql.Date
+	private String author;
 
- 
-	public Article() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Article(int id, String name, String category, Date dateCreated, String creatorName) {
-		super();
+	// Constructor to initialize the Article object
+	public Article(int id, String title, String category, String article_dateCreated, String author) {
 		this.id = id;
-		this.name = name;
+		this.title = title;
 		this.category = category;
-		this.dateCreated = dateCreated;
-		this.creatorName = creatorName;
+		this.date = article_dateCreated;
+		this.author = author;
 	}
 
 	public int getId() {
@@ -32,12 +24,12 @@ public class Article {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getCategory() {
@@ -48,26 +40,25 @@ public class Article {
 		this.category = category;
 	}
 
-	public Date getDateCreated() {
-		return dateCreated;
+	public String getDate() {
+		return date;
 	}
 
-	public void setDateCreated(Date dateCreated) {
-		this.dateCreated = dateCreated;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String getCreatorName() {
-		return creatorName;
+	public String getAuthor() {
+		return author;
 	}
 
-	public void setCreatorName(String creatorName) {
-		this.creatorName = creatorName;
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", name=" + name + ", category=" + category + ", dateCreated=" + dateCreated
-				+ ", creatorName=" + creatorName + "]";
+		return "Article [id=" + id + ", title=" + title + ", category=" + category + ", date=" + date + ", author="
+				+ author + "]";
 	}
-
 }

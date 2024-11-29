@@ -135,20 +135,17 @@ public class ResturantDao implements DaoInterface<Resturant, Integer> {
 	// use to delete record
 	@Override
 	public void delete(Integer id) {
-		// This method performs record deletion against identity
-		String sqlQuery = "delete from restaurant_master where rest_id=?";
+		String sqlQuery = "DELETE FROM article_master WHERE id=?";
 
-		try (Connection conn = JdbcUtils.getConnection(); PreparedStatement psmt = conn.prepareStatement(sqlQuery);
+		try (Connection conn = JdbcUtils.getConnection(); PreparedStatement psmt = conn.prepareStatement(sqlQuery)) {
 
-		) {
 			psmt.setInt(1, id);
-			int UpdateCount = psmt.executeUpdate();
-			System.out.println(UpdateCount + " record Deleted :)");
-		}
+			int updateCount = psmt.executeUpdate();
+			System.out.println(updateCount + " record Deleted :)");
 
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
+
 }

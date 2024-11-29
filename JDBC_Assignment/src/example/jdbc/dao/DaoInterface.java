@@ -11,11 +11,11 @@ public interface DaoInterface<T, K> {
 	T retrieveOne(K key);
 
 	// a method to insert a new record
-//	void create(T t);
+	void create(T t);
 
 	// a method to update an existing record
-//	void update(T t);
+	void update(T t);
 
 	// a method to delete an existing record
-//	void delete(K key);
+	void delete(K key);
 }
