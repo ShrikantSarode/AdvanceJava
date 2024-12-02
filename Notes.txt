@@ -633,6 +633,329 @@ Other Standard Actions :
 				<jsp:param name="..." value="..." />
 				<jsp:param name="..." value="..." />
 			</jsp:forward>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Java Frameworks :		(30-11-2024)
+	-In the context of Java Programming Model, technologies are mainly divided into two types : 
+		1. Specification :
+			-It provides a set of rules but not the implementation.
+			-The actual implementation is provided by third-party softwares known as Web Server and Application Server.
+				e.g., Jakarta EE is a specification which is implemented by Web Server and Application Server.
+		2. Framework	:
+			-It is a partial solution or an implementation used to address common problems. 
+			-It provides its own library and a workflow.
+			-There are so many frameworks based upon Java technology available.
+			-Every frameworks has its own significance.
+				e.g., JUnit is framework meant for Unit Testing.
+					EasyMock is meant for mocking.
+			-There are two frameworks which are very popular and used frquently in Java bases projects : 
+				1. Hibernate
+				2. Spring
+-------------------------------------------------------------------------------------------------------------------------
+Hibernate : 
+	-What is Hibernate?
+		Hibernate is an open source Java based framework meant for building Persistence Layer of an application. (refer hibernate diagram...)
+	
+	-Why Hibernate? 
+		Although JDBC can resolve the problem of data persistency, it involves certain challenges : 
+			1. A lot of boiler-plate code.
+			2. Must make use of SQL always.
+			3. For performance optimization, extra efforts are required because it's not built-in available.
+			4. A lot of code required for handling CRUD operations.
+		-These challenges can be overcome using Hibernate.
+	
+	-What hibernate is all about?
+		1. It is an abstraction on the top of JDBC.
+		2. It is based upon ORM.
 
+	-What is ORM?
+		-ORM stands for Object to Relational Mapping.
+		-It is a set of principles meant for mapping a domain specific objects to relational database tables with the help of mapping metadata.
+		-Principles of ORM : 
+			1. Automated Persistence : Very less code for CRUD operations.
+			2. Full Support for Object Modeling : Provides support for Containment and Inheritance.
+			3. Full Support for Performance Optimization : Provides performance optimization techniques like : fetching, caching, etc,..
+			4. Full Support for Query Language : Provides a query language that is tailored to work upon classes and their properties rather than tables and columns.
+		-Any framework which follows all these principles, is called as an ORM framework.
+			e.g., Hibernate
+				Toplink
+				EclipseLink
+				IBatis
+	-Hibernate Core API : 
+		-The core API of Hibernate mainly consiste of following : 
+			1. Session :
+				-It is an interface from 'org.hibernate' package.
+				-It is a short-lived light-weight object meant for handling Data Persistency(CRUD).
+				-It is an abstraction on the top of JDBC Connection.
+
+			2. SessionFactory :
+				-It is an interface from 'org.hibernate' package.
+				-It is a long-lived heavy-weight object meant for obtaining a session..
+				-It is recommended to have only one per application.
+
+			3. Configuration :
+				-It is a class from 'org.hibernate.cfg' package.
+				-It is used to configure Hibernate based upon metadata.
+				-The metadata is of two types : 
+					a. Mapping Metadata  : 
+						-It is a metadata used to provide mapping between class and table, field and column and so on...
+						-There are two ways to provide mapping metadata : 
+							i. Using XML file
+							ii. Using Annotations
+						-If it is done using XML file, that XML file is turned as HBM(Hibernate Mapping) file.
+					b. Configuration Metadata : 
+						-It is a metadata used to provide JDBC configuration properties for connecting to databases.
+						-Hibernate uses this properties for establishing connection with database.  
+						-There are three ways to provide configuration metadata : 
+							i. Properties File (.properties (name=value pairs))
+							ii. XML File
+							iii. Java Code (Programmatically)
+						-If it is done using XML file, that XML file is turned as CFG(Configuration) file.
+
+			4. Transaction :
+				-It is an interface from 'org.hibernate' package.
+				-It is used to manage the transactions by maintaining atomicity.
+				-It is especially required for DML operations.
+
+			5. Query :
+				 -It is an interface from 'org.hibernate.query' package.
+				-It is used to perform query operations using some query lannguage that makes use of classes and their properties and not tables and their columns.
+-------------------------------------------------------------------------------------------------------------------------
+Getting Started : 
+	Step 1 : Install hibernate specific library.
+		-In order to get started with Hibernate, it is necessary to install Hibernate specific library.
+		-This library is a collection of several classes, interfaces, annotations, and so on., i.e. bundled together using several JAR files.
+		-These JAR files must be downloaded from internet.
+		-This can be done by two ways :
+			1. Download them manually
+			2. Download them using some build tools like Maven or Gradle.
+		Using Maven : 
+			-Create a Maven based simple Java Project.
+			-Setup the environment for version 17+ 
+				a. JRE
+				b. Java Compiler
+				c. Project Facets for Java
+			-Add Hibernate specific dependency
+	Step 2 : Provide an entity class.
+		-In the context of Hibernate, the class of which object's data persisted in database table as a record, is referred as an Entity class.
+	Step 3 : Provide a HBM file(Mapping file)
+		-The entity class needs to be mapped with database table. 
+		-Its field need to be mapped with columns.
+		-This can be done using a mapping file which is HBM file.
+		-It's an XML file and can have any name but by convention it is as per the following format : 
+			[Entity-Class-Name].hbm.xml
+		-This file must be kept under 'src/main/resources' folder.
+	Step 4 : Provide a CFG file(configuration file)
+		-In order to establish connection with database, hibernate needs configuration setup.
+		-This can be done using a configuration file which is a CFG file.
+		-This is an XML file and by default, Hibernate searche for this file with name : 'hibernate.cfg.xml'
+		-This file must be kept under 'src/main/resources' folder.
+	Step 5 : Write a main program
+		-Configure Hibernate using 'Configuration' class.
+		-Obtain a SessionFactory using 'Configuration' class.
+		-Obtain a session using SessionFactory.	
+		-Create an entity class object.
+		-Obtain a transaction and start the same.
+		-Store the entity class object using Session.
+		-Commit the transaction.
+		-Close the Session.
+		-Close the SessionFactory.
+-------------------------------------------------------------------------------------------------------------------------
+Hibernate Application Workflow : 
+	-When the object of configuration class is created, Hibernate starts searching for a configuration file : hibernate.properties.
+	-If found, loads the entries from that file.
+	-Many times, XML file is preferred insted of .properties file.
+	-Therefore to intimate about XML file, 'configure()' method is used.
+	-When this method is called, Hibernate searches for the file : 'hibernate.cfg.xml'
+	-If the name of the XML file is other than 'hibernate.cfg.xml', an overloaded configure method is to be used.
+	-Once hibernate is configured based upon configuration and mapping metadata, a SessionFactory is to be obtained.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Implementing Standard Practices : 
+	-It is always better to follow standard practices.
+		1. Auto-Loading of JDBC Driver.
+		2. Open SessionFactory and Session using try-with resources so that they get closed automatically.
+		3. Decouple the code of obtaining SessionFactory using a seperate class.
+
+Working with metadata without XML : 
+	-Although XML is used to provide metadata, some developers find it difficult to manage because it leads to error-prone situtations.
+	-It has following drawbacks : 
+		1. It is too lengthy.
+		2. It must adhere to basic rules of XML standards.
+		3. A small typo may cause application failure.
+	-To address these problems, hibernate provides an alternative for providing the metadata without XML.
+	
+	-Mapping Metadata : 
+		-In case of mapping metadata, Hibernate supports annotations.
+		-There are two types of annotations : 
+			1. Hibernate Annotations : These are the annotations explicitly provided by Hibernate for handling mapping metadata.
+			2. JPA Annotations : JPA stands for Jakarta Persistence API (Java Persistence API)
+				-It is a specification which is implemented by any ORM framework. e.g., Hibernate, Toplink,..
+				-JPA provides its own set of annotation known as JPA annotation.
+	-Configuration metadata:
+		- In case of configuration metadata, hibernate supports programmatic approach using 'configuration' class.
+		- It provides relevant methods to add the properties:
+			1. setProperty(String,                                     String)
+					[names of the property]     [value of the property]
+			2. setProperties(java.util.Properties)
+
+	-Developing Hibernate Application without XML:
+		- Assumption:
+			- A maven based project is already ready with hibernate and MySQL dependencies.
+				Step 1 : Create an entity class.
+					- In the context annotation based metadata, in order to mark the class as an entity class, JPA provides @Entity annotation.
+					- The entity class needs to be mapped with some table
+					- JPA provides @Table annotation to handle this.
+					- The entity class must declared at least one field as an identity.
+					- JPA provides @Id annotation to handle this.
+					- The properties of entity class need to be mapped with column of database table.
+					- JPA provides @column annotation to handle this.
+
+				Step 2 : Create a configuration metadata specific class.
+					- The 'configuration' class provides relevant methods to handle configuration information.
+						e.g- setProperties(): Accepts a list of properties in the form of           										'java.util.Properties' class object.
+
+					- addAnnotationClass: Accepts a reference of type -
+					               java.lang.Class for the entity class type.
+				Step 3 :
+					- Write a main class.
+-------------------------------------------------------------------------------------------------------------------------
+Performing Data Retrieveal : 
+	-An application may want to retrieve the data from the database table.
+	-Hibernate's Session Interface provides 'find()' method to find the data with the database table.
+	-This method works upon identity and the entity class type.
+	-Since the operation is not a DML operation, it does not require Transaction.
+
+Performing DML UPDATE : 
+	-In order to perform DML UPDATE, first it is necessary to load the data on which update is required.
+	-Since, it is a DML operation, a Transaction is required.
+	-Within the transactional scope, the state of the object can be modify using setter methods.
+	-This modifies state needs to be reflected back to DB to complete the UPDATE operation.
+	-This is done by commiting the transaction.
+
+Performing DML DELETE :
+	-In order to perform DML DELETE, first it is necessary to load the data which is to be deleted.
+	-Since, it is a DML operation, a Transaction is required.
+	-Within the transactional scope, the data is deleted and to reflect the change on DB side, the transaction is committed.
+-------------------------------------------------------------------------------------------------------------------------
+Entity Life Cycle :
+	-The life cycle of an entity class object consist of several states.
+	-These states are associated with a single object which is solely responsible for handling persistence related operations(CRUD).
+	-These object is referred as Persistence Context.
+	e.g., In JDBC, it is Connection whereas in Hibernate it is Session.
+	-There are four steps involved in the life cycle :
+		1. Transient  : 
+			-When the entity instance is not yet associated with any persistence context (Session), then that is said to be in 'Transient' state.
+			-The entity does not have its identity.
+			
+		2. Persistent :
+			-When the entity instance is associated with the persistence context (Session), then that is said to be in 'Persistent' state.
+			-This time, the entity has its own identity.
+
+		3. Detached :
+			-The persistence context with which the entity was associated, if that context is closed, the entity goes into 'Detached' state.
+
+		4. Removed : 
+			-When the entity is explicitly removed using 'remove()' method, it results into deletion of the record from the database table.
+			-In this case, the entity is said to be in 'Removed' state.
+-------------------------------------------------------------------------------------------------------------------------Working with Session : 		(01-12-2024)
+	-The object of type 'Session' is always required for handling CRUD operations. Therefore it is the persistence context of the application.
+	-It provides relevant methods : 
+		persist()	=>	Used for DML INSERT
+		find()	=>	Used for SELECT
+		remove()	=>	Used for DML DELETE
+		(No seperate method for DML UPDATE because it is handled using setter methods and Transaction's commit() )
+	-Sometimes, there are long running transactions and therefore it is better to close the session if the transaction is taking some time.
+	-When the session is closed, the loaded entity object which was in the Persistent state, goes into Detached state.
+	-End user can make changes into this object by calling setter methods.
+	-This changes the state of the entity object but not database.
+	-In order to change the database state, it is necessary to reflect the entity state back to databse.
+	-This is possible only if the entity object is in Persistent state.
+	-Therefore it is necessary to bring the Detached entity back into Persistent state.
+	-This is possible using 'merge()' method of 'Session' interface.
+		e.g., Session s1 = ...
+			Movie m1=s1.find(...);	//m1 goes into Persistent state.
+			s1.close();	//m1 goes into Detached state.
+		
+			//Making changes into detached entity
+			m1.setTitle(...);
+			//Bringing m1 back into Persistent state.
+			Session s2=...
+			s2.merge(m1);	//m1 comes back into Persistent state
+-------------------------------------------------------------------------------------------------------------------------
+Association Mapping : 
+	-In business application, one entity can be associated with another entity or several entities.
+	-When this happens so, the relevant mapping is known as Association Mapping.
+	-Associations are also known as Relationships.
+	-There are four types of relationships : 
+		1. One to One
+		2. One to Many
+		3. Many to One 
+		4. Many  to Many
+	-Every type of relationships has two further types : 
+		1. Unidirectional
+		2. Bidirectional
+	-Based upon this, it seems that there are 8 relationships but in reality, there are 7 relationships because One to Many Bidirectional is same as that of Many to One Bidirectional.
+	
+	-One to One :
+		-In this, an entity holds a single reference of another entity.
+		-In database, any table may contain a Foreign Key column.
+			e.g., Relationship between Employee and Passport.
+
+	-One to Many or Many to One : 
+		-In this, an entity holds references of another entity.
+		-In database, the table which represents MANY side, contains a Foreign Key column.
+			e.g., Relationship between Department and Employees.
+
+	-Many  to Many :
+		-In this an entity holds references of another entity.
+		-In database, a 3rd table(Junction Table or Join Table) is required.
+		-It contains Foreign Key columns referring to both the entity specific tables.
+			e.g., Relationship between Employee and Certification.
+
+	-Unidirectional Associations :
+		-In this case one entity holds reference or references of another entity; but the 2nd entity does not hold any reference back to 1st.
+
+	-Bidirectional Associations :
+		-In this case, both the entity holds reference or references of each other.
+----------------------------------------------------------------------------------------------------------------------
+Querying the database : 
+	-In business applications, retrieving multiple records from database table is a very frequent requirement.
+	-Hibernate's Session interface provides a find() method to retrieve the data from the database table.
+	-However, find() method has 1 limitation : 	It can retrieve only one record that is based upon identity.
+	-Therefore, in order to retrieve multiple records, Hibernate provides a Query Language known as HQL.
+	
+	-HQL stands for Hibernate Query Language.
+	-It is a query language that works with classes and their properties rather than tables and their columns.
+	-Eventually, HQL queries are converted into SQL queries beacause RDBMS understands only SQL syntax.
+	-In order to use HQL, Hibernate provides an interface : Query.
+	
+	Working with HQL : 
+		-HQL consist of several functionalities just similar to SQL but the most frequently used is HQL clauses.
+		-There are mainly two clauses available : 
+			1. FROM : 
+				-It is the simplest form of HQL.
+				-It returns a collection holding objects of entity class.
+				-It is especially used if the entire data of the entity is to be loaded and used.
+				-If the entire loaded data is not in use, it results into memory implications.
+				-To address this problem, Hibernate provides SELECT clause.
+
+			2. SELECT : 
+				-It is used to load the selected data.
+				-It reduces the memory overheads.
+				-It returns a collection holding elements of type 'array' of type 'Object'.
+-------------------------------------------------------------------------------------------------------------------------
+Using Constructor Expression  : 
+	-It is a mechanism that allows to instantiate a Java bean using a constructor through the query string.
+	-It simplifies the working of SELECT clause.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Spring :		(02-12-2024)
+	-What is Spring ?
+		-Spring is a java based framework used to handle various aspects of the application.
+		-It is not intended for doing only one thing, rather it can handle several things.
+		-Spring can be used to handle different types of requirements.
+		e.g., Integrating enterprise services (Higher-end Services)
+	
+	-Why Spring is popular ?
+		-Prior to Spring, it was still possible to handle various aspects of the application e.g., Integration of enterprise services was possible with the help of EJBs.
+		-Even though EJBs were capable of serving these requirements, they had a lot of coding complexities.
+		
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
