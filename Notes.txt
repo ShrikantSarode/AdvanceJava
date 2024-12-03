@@ -3,7 +3,7 @@ Web Based Java	(26-11-2024)
 	2. Servlet and JSP
 	3. Java Frameworks - Hibernate, Spring
 	4. REST APIs using Spring Boot
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 JDBC: 
 	-stands for Java to Database Connectivity.
 	-It is an API(Application Programming Interface) which allows Java applications to interact with DB.
@@ -43,7 +43,7 @@ JDBC:
 				b) It is platform independent.
 				c) It does not require any configuration setup on client machine.
 			-It is highly recommended for production environment and even for large scale applications.
-----------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Getting started : 
 	In order to write any JDBC program there are certain steps to be followed : 
 		i. Load the driver.
@@ -104,7 +104,7 @@ Implementing JDBC steps :
 			To read String, getString()  and to read 'int', getInt()
 		-These methods accept column index as a parameter.
 		-The column index depends upon the SQL query fired and not upon the original table design.
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 JDBC URL: 
 	The JDBC URL is mainly divided into five parts : 
 		1. Main Protocol - 
@@ -120,7 +120,7 @@ JDBC URL:
 			In case of MySQL, it is 3306 whereas for Oracle, it is 1521.
 		5. Schema/Service Name - 
 			It is the name of the DB Schema(MySQL) or service(Oracle).
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Stored Procedure : 
 	While writing JDBC code, it is always better to follow Standard Programing Practices.
 	1) Auto-Loading of JDBC Driver : 
@@ -135,7 +135,7 @@ Stored Procedure :
 	4) Implementing DAO Pattern : 
 		DAO stands for Data Access Object. It is a commonly used design pattern for performing CRUD operations.
 		It starts with a generic interface and the implementation class specifies the actual type.
--------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Parameterized Query : 
 	-A query may have one or many parameters. In order to work with parameterized query, 'PreparedStatement' is to be used.
 	-Even though a query is a parameterized query still it can be fired using a 'Statement' but when the same query is fired repeatedly with different set of values, a new query is formed and compiled.
@@ -144,7 +144,7 @@ Parameterized Query :
 	-Once the query is created it is necessary to substitute values to its unknown parameters.
 	-Every unknown parameter has an index which starts from 1 and increments by 1; moving from left to right.
 	-To substitute value, 'PreparedStatement' provides setter methods.
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Performing DML operations :  	(27-11-2024)
 	-DML operations involve INSERT, UPDATE and DELETE SQL queries.
 	-These operations do not return any data; rather change the state of the data.
@@ -152,13 +152,13 @@ Performing DML operations :  	(27-11-2024)
 	-However, in order to perform the operation, it is necessary to make a JDBC call.
 	-In case of DML queries, it is done using 'executeUpdate()' method.
 	-The method returns 'int' which indicates the number of records affected due to that query.
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Performing DML UPDATE : 
 	-In order to perform DML UPDATE, first it is necessary to load the data on which UPDATE is required.
 	-Typically this is done against Identity.
 	-Once the object is loaded, any times its state can be changed using setter methods.
 	-Once the state is changed, it needs to be reflected back to DB for completing the DML UPDATE.
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Type of Statements : 
 	-In order to make a JDBC call towards database, some type of Statement is required.
 	-Statements in JDBC are of three types : 
@@ -178,7 +178,7 @@ Type of Statements :
 		3. CallableStatement : 
 			-It is a sub-interface of 'PreparedStatement'.
 			-It is used to invoke stored procedures available on DB side.
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Transaction Management : 
 	-In any business application, Transaction Management is an important activity.
 	
@@ -196,7 +196,7 @@ Transaction Management :
 	
 	-To disable 'auto-commit', invoke setAutoCommit(false).
 	-Once it is disabled, changes can be commited by using 'commit()' and rollback using 'rollback()'.
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 Jakarta EE (Java EE (J2EE))
 	-Java language is designed for building vaious types of business applications.
 	e.g.,
@@ -227,7 +227,7 @@ Jakarta EE (Java EE (J2EE))
 		4. Transaction Management
 		5. Security
 		6. Asynchronous Messaging
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Jakarta EE Architecture : 
 	-Jakarta EE is based upon Component Driven Architecture.
 	
@@ -251,7 +251,7 @@ Jakarta EE Architecture :
 					It is taken care by EJB => Enterprise Java Beans.
 		How components are managed?
 			Components are managed using a runtime environment known as Container.
--------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 There are two types of containers : 
 	1. Web Container : 
 		It is a runtime environment responsible for managing web components like Servlet and JSP.
@@ -274,7 +274,7 @@ How containers are made available :
 				JBoss by RedHat
 				GlassFish by Oracle Corporation
 				WildFly by RedHat
--------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Servlet : 
 	What is Servlet? 
 		Servlet is a web component used to extend the functionality of web server.
@@ -328,7 +328,7 @@ Servlet :
 				This option is used for creating servlets that accept any type of request that means protocol independent.
 			3. Extend 'HttpServlet' class : 
 				This option is used for creating servlets those are specifically meant for accepting HTTP request and generating HTTP response.
--------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Jakarta EE - A specification
 	Jakarta EE is a specification (set of rules) and not an implementation.
 	Implementation is provided by third-party softwares : 
@@ -346,7 +346,7 @@ Jakarta EE - A specification
 			Typically this is done by WAR (Web Archive) file and adding to the server.
 			It can be simplified by integrating the server with IDE.
 				"http://localhost:8888/Web_App/greet"
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 URL Constituents : 	(28-11-2024)
 	The Servlet URL has following constituents : 
 		1) Protocol - It is always HTTP
@@ -356,7 +356,7 @@ URL Constituents : 	(28-11-2024)
 		4) Context Root - It is used to target the application deployed on the server.
 		5) Resource URL -It is used to target the actual resource of the application.
 			["http://localhost:8888/Web_App/greet"]
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Servlet Life Cycle : 
 	-The life cycle of servlet consist of three stages : 
 		1. Instantiation and Initialization :
@@ -397,7 +397,7 @@ Servlet Life Cycle :
 
 	-In order to customize the implementation these methods need to be overridden in the sub class.
 	-When the server is requested by typing its URL in browser's address bar, always HTTP GET request is made.
-------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 Requesting a servlet : 
 	A servlet can be requested using several options :
 		1. Using Browser's address bar.
@@ -406,7 +406,7 @@ Requesting a servlet :
 		4. Using an Applet (outdated)
 		5. Using another Servlet 
 		6. Using JSP
--------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------
 HTML Form Processing : 
 	-In web applications, accepting data from end user using HTML form is a very common requirement.
 	-Whatever data is entered by user is needs to be processed on server side and generate the response accordingly.
@@ -1068,4 +1068,213 @@ Dependency Injection  :
 		1. When the client program makes a request to Spring for the bean, Spring injects values into the properties of the bean using setter methods. This is known as Setter Injection.
 		2. When the client program makes a request to Spring for the bean, Spring injects values into the properties of the bean using parameterized constructor. This is known as Constructor Injection.
 	-In case of Constructor Injection, by default the order of the arguments is taken from top to bottom in XML and left to right in Java.
+------------------------------------------------------------------------------------------------------------------------
+Bean Wiring : 
+	-Sometimes, a bean is dependent upon another bean and that another bean may further depend upon some other bean and so on...
+	-When a client program makes a request to Spring for the main bean, Spring has to wire all its dependent beans and then returns the main bean back to the client.
+	-In this case, Spring has to build the inner-most bean first and keep gradually building outer beans and finally building outer-most bean and return it back to the client program.
+	-This entire process is known as Bean Wiring.
+	-In order to perform Bean Wiring at XML level, there are 2 options :
+		1. Using 'ref' attribute.
+		1. Using '<ref>' element.
+------------------------------------------------------------------------------------------------------------------------
+Bean Loading :
+	-Whatever bean is registered in Spring's configuration unit, gets instantiated by Spring.
+	-The process of instantiating the bean is known as Bean Loading.
+	-In Spring, bean loading takes place by two ways : 
+		1. EAGER :
+			-This is the behaviour spring follows by default.
+			-When the context is loaded, Spring starts instantiating the beans available in the configuration unit even though they have not been requested by the client program.
+			-This is known as EAGER loading.
+		2. LAZY : 
+			-In this case, Spring creates an object of the bean class only when  a client program makes a request for the bean of that type.
+			-This is known as LAZY loading.
+			-It is enabled using [lazy-init = "true"] setting for '<bean>' element.
+	-Both these strategies are to be used based upon the requirement.
+	-If the bean is light-weight, it is fine if it gets instantiated on startup whereas if it is heavy-weight, ideally it must be instantiated only when the client program makes a request for it; otherwise it consumes the heap memory unnecessarily.
+------------------------------------------------------------------------------------------------------------------------
+Bean Scope  :
+	-Every bean registered in Spring's configuration unit has some scope.
+	-There are five possible scopes available : 
+		1. singleton : 
+			-It is the default scope of the bean.
+			-If the same bean is requested multiple times, Spring returns the same object. It does not create new object every time.
+		2. prototype : 
+			-It is exactly opposite to singleton.
+			-If the same bean is requested multiple times, Spring returns a new object every time.
+			-To specify the scope, use 'scope' attribute of '<bean>' element.
+	-The scope that is to be used is requirement specific.
+	-Especially, if the bean contains some configuration specific data, ideally its scope will be 'singleton' whereas if it contains some domain specific data, the  'prototype' will be appropriate.
+
+		3. request : 
+			-It is applicable in Spring MVC environment only.
+			-In this case, the bean is associated with an object of type: jakarta.servlet.http.HttpServletRequest.
+		4. session : 
+			-It is applicable in Spring MVC environment only.
+			-In this case, the bean is associated with an object of type: jakarta.servlet.http.HttpSession.
+
+		5. global-session : 
+			-It is applicable in Spring Portlet environment.
+------------------------------------------------------------------------------------------------------------------------
+Task : 
+Create a class EducationInfo with following attributes :
+	highestDegree (String)
+	grade (String)
+Create a class ContactInfo with following attributes : 
+	mobileNo (String)
+	emailAddress (String)
+Create a class Profle with following attributes :
+	candidateId (int)
+	name (String)
+	contactDetails (ContactInfo)
+	educationDetails (EducationInfo)
+
+Implement Dependency Injection and test the functionality.
+------------------------------------------------------------------------------------------------------------------------
+Bean Configuration without XML :	(03-12-2024)
+	-The component that is registered with Spring's environment is a Spring Bean.
+	-This registration can be done by two ways : 
+		1. With XML
+		2. Without XML
+	-Although XML option brings flexibility and loose coupling, still many developer prefer to avoid it because it is too lengthy, time consuming and may lead to error-prone situations.
+	-To address this problem, Spring comes up with an alternative : Bean Configuration without XML.
+
+	-Bean Configuration without XML can be implemented by two ways : 
+		1. Java Based Configuration : 
+			-In this case, the configuration unit is provided by defining a Java class.
+			-This class can have any name but as per the convention, it is 'SpringConfig'.
+			-Once the class is defined, it is necessary to intimate Spring that the class is a configuration specific class rather than just an ordinary Java class.
+			-This is done by using '@Configuration' annotation.
+			-It is to be applied at the class level.
+			-Once the configuration specific class is defined it can be used to declare or register components as Spring Beans.
+			-In order to register component as Spring Bean, it is necessary to define a method in the configuration class which returns an object of that particular class of which that bean is to be configured.
+			-Once the method is defined, it is necessary to intimate Spring that this method is a bean configuration specific method rather than just an ordinary Java method.
+			-This is done by using '@Bean' annotation.
+			-It is to be applied at the method level.
+			-Once the bean is registered using '@Bean' by default, Spring assigns an ID to this bean which is equal to the method name.
+			-Once the configuration is done, a client program can make a request to Spring for obtaining the bean.
+			-Since the configuration takes place using some annotations and not XML file, Spring provides a relevant class for obtaining the beans : AnnotationConfigApplicationContext.
+			-In order to load the beans from configuration unit, it is necessary to register that configuration unit with AnnotationConfigApplicationContext.
+			-This is done using 'register()' method of AnnotationConfigApplicationContext.
+			-Once the registration is done, it is necessary to refresh the context to apply the changes.
+			-This is done using 'refresh()' method.
+			-Simplifying AnnotationConfigApplicationContext : 
+				-When the configuration specific class is associated with AnnotationConfigApplicationContext using 'register()' method, it is necessary to refresh the context using 'refresh()' method; otherwise 'IllegalStateException' is raised.
+				-This can be simplified in such a way that registration and context refreshment happens implicitly.
+				-This is done using overloaded contructor of : AnnotationConfigApplicationContext
+				-Configuring predefined Beans : 
+					-Spring is not limited to configure beans of user defined types; it is also capable of configuring beans of predefined types.
+			
+			-Working with Lazy Loading : 
+				-If the bean is heavy-weight, ideally it is to be loaded lazily.
+				-It must be instantiated only when client makes a request.
+				-This behaviour is called as Lazy Loading.
+				-This is done by adding @Lazy annotation at bean creation method level.
+		
+			-Working with Scope : 
+				-All beans declared in configuration unit have some scope.
+				-The default scope is 'singleton'.
+				-In order to change the scope, Spring provides @Scope annotation.
+				-It is applied at the bean creation method level.
+
+		2. Pure Annotation Based Configuration : 
+			-In case of Java Based Configuration, the configuration unit is taken care by a Java class anotated with @Configuration annotation.
+			-The bean creation or configuration is taken care by a method from that class annotated with @Bean annotation.
+			-In this method, the class of which a bean is to be configured, an object of that class is returned back.
+			-This is done using traditional semantics of Java language : The 'new' keyword.
+			-Therefore, this option is called as Java Based Configuration.
+			-In the 2nd option, Pure Annotation Based Configuration, the bean creation does not take place using traditional Java Semantics.
+			-It is completely based upon annotations and object creation takes place via Java's reflection mechanism.
+			-Therefore, this option is known as Pure Annotation Based Configuration.
+			-In this, the beans are configured using a stereo-type annotation known as @Component.
+			-It is to be applied at the class level of the class of which a bean is to be configured.
+			-Once the class is declared as a 'Component', Spring can manage its bean and the same can be requested by a client program.
+			-However, this time the request is made not by using the ID; rather by using the Class type.
+			-This is done using the overloaded 'getBean()' method.
+			-Even though the class is annotated with '@Component' annotation, it does not get picked up by Spring.
+			-In order to get it picked up by Spring, it is necessary to perform scanning of a package which contains the class annotated with @Component annotation.
+			-In order to perform scanning, Spring provides '@ComponentScan' annotation.
+			-It is to be applied at the class level of the configuration specific class.
+			-If the configuration specific class (@Configuration) and the component specific class (@Component) are defined in same package then only the entry of '@ComponentScan' is sufficient.
+			-This is the default behaviour Spring follows.
+			-If the component specific class is available in sub package or sub-sub package, still only the name of base package is sufficient.
+			-This is because, @ComponetScan not only scans the package of which name is mentioned, it scans the whole branch.
+			-When the @ComponentScan annotation is used without the attributr 'basePackages', by default it picks up the @Component specific classes available in the same package as that of the configuration specific class.
+			-If the attribute 'basePackages' is used, the default behaivoiur gets vanished.
+			-In this case, the base package name must be mentioned explicitly.
+	-Obtaining the component bean against ID: 
+		-The beans which are declared to Spring's environment using @Component annotation are called as component beans.
+		-Typically these beans are accessed using the 'Class' type of the component specific class.
+		-However, it is also possible to access them against ID if they are configured with some ID.
+-------------------------------------------------------------------------------------------------------------------------
+Java Based Configuration Vs Pure Annotation Based Configuration
+	1. While configuring beans without XML, both the approaches have their own significance.
+	2. Both the approaches are in use and it depends upon the application's requirements.
+	3. The 1st option is applicable in following circumstances : 
+		i. The bean specific class is a legacy class.
+		ii. Multiple beans of that same type are to be configured
+	4. The 2nd option is applicable in following circumstances : 
+		i. The bean specific class is not a legacy class; rather it is created by ourselves.
+		ii. Single bean instance of that type is sufficient.
+-------------------------------------------------------------------------------------------------------------------------
+Bean Wiring Revisited : 
+	-When beans have dependencies on other beans, Spring has to resolve them and return the main bean back to the client.
+	-Injecting the inner bean into the outer bean is known as Bean Wiring.
+	-There are two types of bean wiring : 
+		i. Explicit wiring : 
+			-In this case, which bean is to be wired is explicitly mentioned in the configuration unit of the application.
+			-Therefore this type of bean wiring is called as Explicit Wiring.
+		ii. Implicit Wiring : 
+			-In this case, instad of  explicitly wiring the inner bean with outer bean, Spring automatically figures it out and wires it.
+			-Therefore this type of bean wiring is called as Implicit Wiring.
+			-Since, the wiring activity is taken care by Spring, from the developer's perspective, it is automatic.
+			-Therefore this type of bean wiring is also known as Auto Wiring.
+			-In order to implement auto wiring, Spring provides @Autowired annotation.
+			-It can be applied either at the field level or the setter method level of the field which is to be auto wired.
+	-How auto wiring works ? 
+		-When the @Autowired annotation is applied at the field level, Spring identifies the type of the field.
+		-Once the type is identified, it checks for the bean of that type in the configuration unit.
+		-Once the bean is found, it gets wired.
+	-What if the bean is not found ? 
+		-If the bean is not found, UnsatisfiedDependencyException is thrown.
+		-This problem can be resolved using 'OPTIONAL' behaviour by setting 'required = false' for @Autowired annotation.
+	-What if multiple beans of same type are found ? 
+		-If multiple beans of same type are found, it results into ambiguity and UnsatisfiedDependencyInjection is thrown.
+		-There are two options to resolve this ambiguity :
+			1. @Primary 		-	Used in the configuration specific class.
+			2. @Qualifier		-	Used in the bean specific class.
+		-If both are used @Qualifier takes priority.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Spring AOP : 
+	-AOP stands for Aspect Oriented Programming.
+	-It is a module which allows to separate secondary concerns from primary concerns.
+	-These secondary concerns are the functionalities which cut across several points in the application and therefore they are also called as cross-cutting concerns.
+	-AOP  is a programming model which is used for  code separation. It brings two benefits: 
+		i. Flexibility - The system becomes easy to refactor.
+		ii. Re-Usability- The secondary concerns or cross-cutting concerns can be reused for different types of primary concerns. 
+	-Application developers can focus upon the core business functionality.
+
+AOP Terminologies :
+	In Spring AOP, there are five terminologies used : 
+		1. Advice : It defines WHAT and WHEN of an aspect.
+		2. JoinPoint : It is the probable location where an aspect CAN BE  plugged in.
+ 		3. PointCut : It is the exact location where an aspect IS TO BE  plugged in.
+				     It advice defines WHAT and WHEN, then point cut defines WHERE.
+		4. Aspect : It is the merger of Advice and PointCut. 
+				  It defines WHAT, WHEN and WHERE.
+		5. Proxy : -It is the mediator between a client program and the target bean
+				-When a client program makes a request, proxy comes in between and intercepts that request.
+				-Similarly, when the target bean method execution is over, proxy comes in between and intercepts that call as well.
+				-Spring has a special container to manage all these things.
+				-It is called as AOP container.
+				-It is responsible for handling all the activities relevant to AOP.
+				-It is also responsible for proxy generation.
+				-The process generation of proxy generation is known as Weaving.
+				-In general, Weaving is of three types : 
+					i. Compile Time : Proxy gets generated when the target class is compiled.
+					ii. Class Load Time : Proxy gets generated when the target class is loaded.
+					iii. Runtime : Proxy gets generated during the execution i.e. at runtime.
+				-In case of Spring AOP, weaving always happens at runtime.
+-------------------------------------------------------------------------------------------------------------------------
+	(04-12-2024)
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
