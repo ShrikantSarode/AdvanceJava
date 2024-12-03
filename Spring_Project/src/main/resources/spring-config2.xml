@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--<bean id="myBean" class="example.spring.core.HelloService" /> -->
+	<!-- Bean for HelloService -->
+	<!-- <bean id="myBean" class="example.spring.core.HelloService"/> -->
+
+	<!-- Bean for WelcomeService -->
+	<bean id="myAddress" class="example.spring.core.Address">
+		<property name="city" value="Nashik" />
+		<property name="pinCode" value="42210" />
+	</bean>
+
+	<bean id="myAnotherAddress" class="example.spring.core.Address">
+		<property name="city" value="Pune" />
+		<property name="pinCode" value="45510" />
+	</bean>
+
+	<bean id="myCustomer" class="example.spring.core.Customer">
+		<property name="name" value="Shrikant" />
+		<property name="email" value="sda@ssg.com" />
+		<!-- <property name="permanateAddress" ref="myAnotherAddress" /> -->
+		<property name="permanateAddress">
+			<ref bean="myAnotherAddress" />
+		</property>
+	</bean>
+
+
+
+</beans>

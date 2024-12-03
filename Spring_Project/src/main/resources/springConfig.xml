@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--<bean id="myBean" class="example.spring.core.HelloService" /> -->
+	<!-- Bean for HelloService -->
+	<!-- <bean id="myBean" class="example.spring.core.HelloService"/> -->
+
+	<!-- Bean for WelcomeService -->
+	<bean id="myBean" class="example.spring.core.WelcomeService"></bean>
+
+	<bean id="userBean" class="example.spring.core.UserService">
+		<property name="userName" value="Niki" />
+		<property name="userAge" value="19" />
+	</bean>
+
+	<bean id="userBean2" class="example.spring.core.UserService">
+		<constructor-arg value="Riddhi" />
+		<constructor-arg name="userAge" value="23" />
+	</bean>
+
+</beans>

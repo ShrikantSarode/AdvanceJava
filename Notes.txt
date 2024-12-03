@@ -957,5 +957,115 @@ Spring :		(02-12-2024)
 	-Why Spring is popular ?
 		-Prior to Spring, it was still possible to handle various aspects of the application e.g., Integration of enterprise services was possible with the help of EJBs.
 		-Even though EJBs were capable of serving these requirements, they had a lot of coding complexities.
+		-In 2003, Spring Framework was introduced and intended for resolving these problems. 
+		-Due to lightweight environment and simple code format, it got wide acceptance and now a days it is used heavily in Java based projects.
 		
+	-Spring Modules :
+		-Spring can handle different types of requirements of the application through several modules.
+		-There are so many modules involved in Spring :
+			1. Spring Core : 
+				-This is the module present at the bottom level.
+				-It is meant for handling core functionalities of Spring.
+				-It is the base for all the other modules.
+
+			2. Spring AOP	 : 
+				-AOP stands for Aspect Oriented Programming.
+				-It is a module which allows applications to seperate secondary concerns from primary concerns.
+			3. Spring Data Access : 
+				-Spring does not attempt to provide its own implementation for accessing the data from databse; rather it provides hooks(adapters/connectors) for integrating with other persistence oriented technologies like JDBC, Hibernate, JPA, etc.
+				
+			4. Spring MVC : 
+				-MVC stands for Model View Controller.
+				-It is a commonly used architecture or design pattern for building web based applications.
+				-This module is used to build web based applications.
+
+			5. Spring REST : 
+				-REST stands for Representational State Transfer.
+				-It is a type of web service for building APIs.
+				-Spring provides awesome support for building Restful APIs as back-end services using this module.
+
+			6. Spring Security :
+				-This module allows to secure the applications.
+				-Typically third is done at two levels : 
+					Authentication and Authorization
+
+			7. Spring Cloud : 
+				-Spring provides support for deploying the back-end services in the cloud using this module.
+				-It provides a large eco-system to manage cloud specific functionalities.
+-------------------------------------------------------------------------------------------------------------------------
+Spring Core : 
+	-It is the module persent at the base.
+	-It handles core functionalities of Spring.
+	-It mainly provides two functionalities : 
+		1. Bean Management
+		2. Dependency Injection
+
+		Bean Management : 
+			-Like Jakarta EE, Spring is also based upon component driven Architecture.
+			-Typically, in Java SE, components are unmanaged but they are independent (POJOs) whereas, in Jakarta EE, components are managed but they are dependent (Non-POJOs).
+			-Spring offers a dual service. It can manage the life cycle of the components even though they are simple POJOs i.e. independent.
+			-The component that is to be managed by Spring, must be registered with the environment of Spring.
+			-Any component that is registered with the Spring's environment is called as a Spring Bean.
+-------------------------------------------------------------------------------------------------------------------------
+Getting Started :
+	Step 1 : Install Spring Specific library 
+		-Like Hibernate, Spring is also a framework and therefore its library is distributed in the form of JAR files.
+		-To get started with Spring, it is necessary to download these JAR files. 
+		-This can be done by 2 ways :
+			1. Download them manually from Internet.
+			2. Resolve them using some build tools like Maven or Gradel.
+
+		-Create Maven based Simple Java Project
+		-Setup the environment for Java 17+
+			JRE	
+			Java Compiler		
+			Project Facets for Java
+			
+	Step 2 : Create an Interface
+	
+	Step 3 : Create an Implementation class of this interface.
+
+	Step 4 : Register or declare the bean of this class type with Spring's environment :
+		-In order to register any component as a bean with Spring's environment, Spring provides a configuration unit.
+		-A configuration unit is a place where beans are registered or declared.
+		-There are two ways to provide this configuration unit :
+			1. Using XML
+			2. Without using XML
+		-In case of XML option, the file can have any name but their convention it is spring-config.xml.
+		-This file can be placed anywhere may be inside the project or even outside the project as well.
+		-However, as per the standard practice, it has to be placed under : src/main/resource.
+	
+	Step 5 : Write a main program.
+		-Once the bean is registered in the Spring's environment i.e. Configuration unit, a client program may request for the same.
+		-In order to request Spring about the bean, Spring framework provides one service :
+			ApplicationContext (Interface)
+		-It is an interface and needs to be used through one of its several implementations.
+		-The most commonly used implementation class is : FileSystemXmlApplicationContext
+		-It works upon file path to resolve the file.
+		-The path can be of two types :
+			1. Absolute path 
+			2. Relative path
+		-If the file is present outside the project, absolute path is required whereas if it is present inside the project, relative path is sufficient.
+------------------------------------------------------------------------------------------------------------------------
+Working with ApplicationContext : 
+	-'ApplicationContext' is a service provided by Spring that allows to load the context i.e. configuration unit.
+	-This service is made available by Spring through several implementation classes.
+	e.g., 
+		FileSystemXmlApplicationContext : 
+			-It allows to load the context from an XML file located on the File System.
+			-It needs the file path either absolute or relative depending upon the location.
+		
+		ClassPathXmlApplicationContext :
+			-It allows to load the context from an XML file located in the project's CLASSPATH.
+			-If the file is located under src/main/resources it automatically gets added into project's classpath.
+-------------------------------------------------------------------------------------------------------------------------
+Dependency Injection  : 
+	-A bean registered in Spring's environment may have some dependencies in the form of properties.
+	-When a client program makes a request to Spring for getting that particular bean which has dependencies, Spring has to inject values for those dependencies and return that bean back to the client program.
+	-This process of injecting values for dependencies is known as Dependency Injection.
+	-Dependency Injection (DI) is also known as Inversion of Control (IOC) because the control is shifted from client program to the Spring's environment i.e. container.
+	-Spring can inject the dependencies by two ways : 
+		1. When the client program makes a request to Spring for the bean, Spring injects values into the properties of the bean using setter methods. This is known as Setter Injection.
+		2. When the client program makes a request to Spring for the bean, Spring injects values into the properties of the bean using parameterized constructor. This is known as Constructor Injection.
+	-In case of Constructor Injection, by default the order of the arguments is taken from top to bottom in XML and left to right in Java.
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
