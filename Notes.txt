@@ -1276,5 +1276,178 @@ AOP Terminologies :
 					iii. Runtime : Proxy gets generated during the execution i.e. at runtime.
 				-In case of Spring AOP, weaving always happens at runtime.
 -------------------------------------------------------------------------------------------------------------------------
-	(04-12-2024)
+Types of Advice:	(04-12-2024)
+	-In Spring AOP, there are five types of Advice :
+		1.Before Advice : It is used to handle the functionality before the execution of target bean method.
+
+		2. After Returning Advice : It is used to handle the functionality after the successful execution of target bean method.
+
+		3. After Throwing Advice : It is used to handle the functionality when the target bean method throws some exeception.
+
+		4. After Advice : It is used to handle the functionality irrespective of whether the target bean method executes successfully or not.
+
+		5. Around Advice : It is not meant for handling any separate functionality; rather it is a combination of all the above four mentioned advices.
+-------------------------------------------------------------------------------------------------------------------------
+AOP support in Spring : 
+	-In Spring Framework, AOP is supported by a third party library known as AspectJ.
+	-It is a library that is associated with Spring right from the 1st version.
+	-It provides several annotations for implementing AOP :
+		1. @Aspect : It is to be applied at the class level to indicate that the class is an aspect.
+		2. @Before : -It is to be applied at the method level.
+				     -Causes the method to be invoked before the execution of the target bean method.
+		3. @AfterReturning : -It is to be applied at the method level.
+						    -Causes the method to be invoked after successful execution of the target bean method.
+		4. @AfterThrowing : -It is to be applied at the method level.
+						   -Causes the method to be invoked when the target bean method throws an exception.
+		5. @After	 :  -It is to be applied at the method level.
+				    -Causes the method to be invoked irrespective of whether the target bean method executes successfully or not.
+		6. @Around : -It is to be applied at the method level.
+				       -It is used to configure method as an Around Advice.
+		7. @Pointcut : -It is to be applied at the method level.
+				         -It is used to declare the pointcut expression.
+					 -The corresponding method is just used as a marker method and it is meant for forward referencing.
+-------------------------------------------------------------------------------------------------------------------------
+Enabling Proxy Generation : 
+	-While working with AOP, there is always a mediator that intercepts the request and handles the aspect specific logic i.e. a secondary concern or a cross cutting concern.
+	-This mediator is known as a proxy and Spring AOP container is responsible for generating it.
+	-However, this proxy generation takes place only when the relevant support is enabled.
+	-This is done by using annotation : @EnableAspectJAutoProxy
+	-It is to be applied at the class level of the configuration specific class.
+-------------------------------------------------------------------------------------------------------------------------
+Getting Started:
+	Step 1:
+	-Install the third-party library i.e AspectJ specific JAR Files.
+	-This is done by adding 2 dependencies:
+		1. aspectjweaver
+		2. aspectjrt
+
+	Step 2 : Create target bean class and declare it as a managed component : This is the class which defines primary concerns.
+	
+	Step 3 : Create an aspect specific class : This is the class which defines secondary concerns.
+		-In order to intimate Spring that the class is an aspect specific class, it must be annotated with @Aspect annotation.
+		-Defining the secondary concerns using relevant methods.
+		-Configure these methods as advices using relevant annotations.
+		-Once it is done, it specified WHAT and WHEN but not WHERE.
+		-This is done using a point-cut expression.
+		-The point-cut expression provides several designators .
+			e.g., execution
+				within
+				args...
+		-The point-cut expression can be mentioned directly as a String parameter for the advice specific annotations.
+		-However, this option is not recommended beacuse if any change is required, e.g., if the package name is changed, the changes must be done at all places where the expression is used.
+		-Therefore, the better option is to define a method and mark that method as a point-cut.
+		-This method just acts as a marker method and it does not participate in any execution; rather it is just used fro forward referencing.
+		-Since the method specifies the point-cut expression, it must be annotated with @Pointcut annotation.
+
+	Step 4 : Provide a configuration specific class.
+		-This is the class which must enable proxy generation support.
+		-Therefore, it must be annotated with @EnableAspectJAutoProxy.
+		
+	Step 5 : Write a main program
+
+Working with Around Advice : 
+	-Spring AOP provides an Around Advice which is a combination of all the other four advices.
+	-Since it is a combination of all four advices, it is handled using a single method which is exposed to the outer world.
+	-Since there is only one 'public' method which is handling all the four advices, there has to be a clear cut seperation of method invocations.
+		e.g., In between Before and AfterReturning stages, it is necessary to send the control towards the target bean method.
+	-These things are handled using an interface : ProceedingJoinPoint
+	-It provides a relevant method : proceed().
+	-Once all the call seperation are done, this 'public' method must be configured as 'AroundAdvice'.
+	-This is done by annotating it using @Around Annotation.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Spring MVC : 
+	-Spring Framework provides a separate module known as Spring MVC.
+	-It is used for building Web Based Applications.
+	
+	-What is MVC ? 
+		-MVC stands for Model-View-Controller.
+		-It is a commonly used architecture or a design pattern for building Web Based Applications.
+		
+		-Model : 
+			-It is the responsible for handling the business logic of the application.
+			-It is also responsible for storing application specific data.
+			-Generally, it is implemented using a simple Java class(Java Bean) or an EJB(Enterprise Java Bean).
+
+		-View : 
+			-It is responsible for handling presentation logic of the application.
+			-It either accepts the data from the end user or presents the data to the user.
+			-Generally it is implemented using HTML and JSPs.
+		
+		-Controller : 
+			-It is responsible for handling the navigation and the workflow of the application.
+			-It is used to bridge the gap between model and view.
+			-Generally, it is implemented using Servlets.
+		-This is why Jakarta EE has 3 components keeping MVC in mind : Servlet(Controller), JSP(View) and EJB(Model).
+
+	MVC architecture has 2 variants:
+		1.MVC 1-
+			-In this case, all the three aspects: Model, View and Controller are taken care of using JSPs.
+			-Since everything is managed using JSP, this architecture is called as Page Centric Architecture.
+			-Since all the 3 codes are mixed in JSP, it leads to tight coupling.
+			-Therefore this type of architecture is not recommended.
+
+		2.MVC 2-
+			-In this case, all the three aspects: Model, View and Controller are decoupled from each other.
+			-Model is taken care by java class (java  bean) or EJB, view is by JSP and controller is by servlet.
+			-Since the entire navigation and workflow is handled using servlet, this architecture is called as Servlet Centric Architecture.
+			-Since is follows code separation, it is highly recommended.
+
+		Getting Started with Spring MVC:
+			-Spring MVC is completely based upon MVC 2 variant.
+			-Therefore applications built using spring MVC are enforced to follows standard practices.
+			-Apart from MVC 2, Spring MVC is based upon one more design pattern: Front Controller
+				-It is the single controller (Servlet) in the application that handles the entire navigation and workflow.
+				-All the incoming requests first hit this controller and then the further delegation takes place.
+
+		Spring MVC Components : 
+			-Spring MVC mainly consists of five components : 
+				1. Front Controller : 
+					-It is the single servlet which accepts all the incoming requests for the applications.
+					-It handles the entire navigation and workflow.
+					-Further, it delegates the call to the controller.
+					-In Spring MVC it is predefine and it is named as : DispatcherServlet
+				2. Controller : 
+					-It is responsible for handling the request.
+					-It handles the request either of its own or delegates the call to Model.
+					-It is user defined and implemented using a simple Java class.
+					-It returns a view name back to the front controller.
+				3. Model : 
+					-It is responsible for handling the business logic of the application.
+					-It is also responsible for storing application specific data.
+					-It is user defined and implemented using a simple Java class.
+				4. View : 
+					-It is responsible for handling the presentation logic of the application.
+					-It is user defined and implemented using JSPs.
+				5. View Resolver : 
+					-It is responsible for resolving the view based upon some specific properties.
+					-FrontController uses view name returned from Controller and View Resolver to render the actual view.
+					-It is predefined in Spring MVC.
+					-There are several view ro resolvers available but the most commonly used is InternalResourceViewResolver.
+-------------------------------------------------------------------------------------------------------------------------
+Getting started with Spring MVC example : 
+	Step 1 : Create a Maven based web project.
+	
+	Step 2 : Setup the environment 
+		a) JDK 17+ (JRE Version)
+		b) Java Compiler (Same Version)
+		c) Project Facets : 
+			i. Java 17
+			ii. Dynamic Web Module (6)
+		d) Target Runtime - Tomcat 
+
+	Step 3 : Add Spring MVC Maven Dependency
+	
+	Step 4 : Configure Front Controller
+		-In Spring MVC, Front Controller is handled using DispatcherServlet and it is to be configured is such a way that it accepts all the incoming requestes.
+		-Ideally, it should get configured within the application when the application starts.
+		-In order to handle all these things, Spring MVC provides an Interface : WebApplicationInitializer.
+		-It provides a single method : onStartup()
+		-Therefore, the configuration of the DispatcherServlet is taken care by an implementation class of WebApplicationInitializer.
+		-In this implementation, the DispatcherServlet is instantiated based upon WebApplicationContext which sets up the enviornment of the application, e.g., base package name to be scanned.
+		-Once the DispatcherServlet is instantiated it must be registered and configured in such a way that it will handle all the incoming requests.
+		-This is done using 'ServletRegistration.Dynamic' 	
+							[OuterInterface].[InnerInterface]
+	
+	Step 5 : 
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
