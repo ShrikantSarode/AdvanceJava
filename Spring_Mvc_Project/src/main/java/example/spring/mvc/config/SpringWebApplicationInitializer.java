@@ -10,9 +10,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRegistration;
 
 public class SpringWebApplicationInitializer implements WebApplicationInitializer {
-//This class is used to configure DispatcherServlet in such a way that if accepts all the incoming requests.
+
+	/*
+	 * This class is used to configure DispatcherServlet in such a way that it
+	 * acceps all the incoming requests.
+	 */
 	private WebApplicationContext getWebApplicationContext() {
 		AnnotationConfigWebApplicationContext webCtx = new AnnotationConfigWebApplicationContext();
+		// This is equivalent of @ComponentScan(basePackeges = "example")
 		webCtx.setConfigLocation("example");
 		return webCtx;
 
@@ -20,14 +25,14 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
 
 	@Override
 	public void onStartup(ServletContext ctx) throws ServletException {
-		WebApplicationContext webAppctx = getWebApplicationContext();
-		// Building the object of Dispatcher servlet based upon webAppCtx
-
-		DispatcherServlet frontController = new DispatcherServlet(webAppctx);
-		ServletRegistration.Dynamic registration = ctx.addServlet("myFrontController", frontController);
-
-		// COnfuiguring FrontController servlet that accepts
-
+		System.out.println("Application is being started...");
+		WebApplicationContext webAppCtx = getWebApplicationContext();
+		// Building an Object of DispatcherServlet based upon webAppCtx
+		DispatcherServlet frontController = new DispatcherServlet(webAppCtx);
+		
+		ServletRegistration.Dynamic registration = 
+				ctx.addServlet("myFrontController", frontController);
+		// Configuring FrontController servlet that accepts all requests 
 		registration.addMapping("/");
 	}
 

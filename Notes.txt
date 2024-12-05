@@ -1447,7 +1447,111 @@ Getting started with Spring MVC example :
 		-Once the DispatcherServlet is instantiated it must be registered and configured in such a way that it will handle all the incoming requests.
 		-This is done using 'ServletRegistration.Dynamic' 	
 							[OuterInterface].[InnerInterface]
+(5-12-2024)
+	Step 5 : Define a controller 
+		-In Spring MVC, controller is the component responsible for handling the request.
+		-It is created using a simple Java class.
+		-Once the class is defined, it is necessary to initimate Spring that this class is not an ordinary class; rather it is a Contoller class.
+		-This is done by annotating it using @Controller annotation.
+		-Once the controller class is defined, it can be used to configure end points (URLs) for handling the request.
+		-This is done by defining a method and typically this method returns a view name.
+		-Once the method is defined, it needs to be mapped with some end points (URL).
+		-This is done using @RequestMapping annotation.
+		-It is to be applied at the method level.
 	
-	Step 5 : 
+	Step 6 : Define a view
+		-Typically, in Spring MVC, view is handled using JSPs.
+
+	Step 7 : Configure a View Resolver 
+		-The value reuturned from Controller is a view name and front controller needs to resolve the actual view.
+		-Front Controller makes use of View Resolver to resolve the view.
+		-Spring MVC provides several view resolvers but the most commonly used is InternalResourceViewResolver.
+		-It is configured using a simple Java class but to acquire Spring MVC specific capabilities, it has to implement an interface : WebMvcConfigure.
+		-It is a marker interface (does not have any method) but marks the class as MVC configuration specifc class.
+		-Once it is marked as MVC configuration specifc class, to enable Spring MVC specific capabilties, the class has to be annotated with @EnableWebMvc annotation.
+		-The InternalResourceViewResolver resolves the view based upon two properties : prefix and suffix.
+
+	Step 8 : Deploy the application on Web Server - Tomcat
+
+	Step 9 : Start the Tomcat server
+
+	Step 10 : Open the client (Web Browser) and hit the URL.
+-------------------------------------------------------------------------------------------------------------------------
+Spring MVC Application Workflow : 
+	-When the application is deployed on web server and the server is started, the 'onStartup()' method from WebApplicationInitializer implementation class gets called.
+	-This method is used to configure following things : 
+		1. The base package for component scanning
+		2. The front controller DispatcherServlet 
+	-Due to the base package for component scanning activity, all the classes annotated with Spring's stereo type annotations, e.g., @Component, @Controller and so on.., falling under that package get scanned.
+	-Since the controller class contains a request handling method annotated with @RequestMapping annotation, that also gets scanned.
+	-When the application is requested for the very 1st time, the implementation class of WebMvcConfigurer gets triggered and the view resolver gets configured, precisely it is : InternalResourceViewResolver based upon prefix and suffix.
+	-Since every URL starts with a '/' and the front controller that is DispatcherServlet  is already configured with that particular URL mapping, every time first the request hits this front controller.
+	-After this, based upon the actual URL (/doGreet), the front controller delegates the call to the controller by invoking the request handling method (getIndexPage()).
+	-This method is actually used to handle the request. 
+	-This method either handles the request of its own or delegates the call to the model.
+	-Eventually, it returns a view name back to the Front Controller.
+	-Front Controller receives the view name returned from Controller and resolves th⁮e actual view with the help of some view resolver known as InternalResourceViewResolver.
+	-It resolves the view based upon two properties : prefix and suffix.
+	-Eventually, it renders the actual view back to the client.
+-------------------------------------------------------------------------------------------------------------------------
+HTML Form Processing : 
+	-A web application accepts data from end user using some HTML form and that data needs to be processed further.
+	-This is called as HTML Form Processing.
+	-In Spring MVC, unlike servlet, methods : doGet() and doPost() are not available.
+	-Therefore, handles for the ojects of type 'HttpServletRequest' and 'HttpServletResponse' are also not available.
+	-In this case, in order to fetch request specific parameters, a parameterized request handling method is used.
+	-Further to store the values in the receiving variables, it is necessary to bind request specific parameters with these receiving variables.
+	-This is done using @RequestParam annotation.
+	-It is to be applied at the receiving parameter level.
+	-In case of form processing, ideally HTTP POST request is sent as GET request has security implications.
+	-Therefore, the request handling method must be configured in such a way that it handles the POST request.
+	-This is done by specifying 'method' attribute for @RequestMapping annotation.
+-------------------------------------------------------------------------------------------------------------------------
+Rendering application specific data : 
+	-When the request is processed and the response is generating in the form of some view, it might be required to render application specific data in the resultant page.
+	-In order to render the data in the resultant page, first the data must be stored somewhere.
+	-The container where this data gets stored is called as Model object.
+	-In order to work with this Model object, Spring MVC provides an interface : Model
+	-In order to use 'Model' interface it is necessary to declare a receiving parameter of that type in request handling method.
+	-In order to store data in the Model object, 'Model' interface provides relevant methods, e.g., addAttribute()
+	-Once the attribute is added in the Model object, by default it is in the REQUEST scope.
+	-Sometimes, this data needs to be used accross multiple request made within a session and therefore, ideally it must be kept in a SESSION scope.
+	-This is possible using @SessionAttributes annotation.
+	-It is to be applied at the class level.
+-------------------------------------------------------------------------------------------------------------------------
+Simplifying Request Mapping : 
+	-In order to configure method for handling the request, Spring MVC provides @RequestMapping annotation.
+	-It is the single annotation that is used to handle various types of HTTP requests.
+	-As long as GET request is to be configured, it is simple as it is the default type taken into consideration.
+	-In case of other requests, a special 'method' attribute needs to be mentioned.
+	-This can be simplified using relevant HTTP method oriented annotations.
+		e.g.,
+			GET		=>	@GetMapping
+			POST	=>	@PostMapping
+			PUT		=>	@PutMapping
+			DELETE	=>	@DeleteMapping
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Task : 
+	-Build a web application that allows end user to manage Cricket Team data as per the following : 
+		Cricket Team
+			teamId (String)
+			teamName(String)
+			testRanking (int)
+			odiRanking (int)
+			t20Ranking (int)
+
+	-The data about Cricket Team is maintained using some in-memory collection with the help of some Java class.
+	-The application starts with a home page that is accessed using '/home' end point.
+	-The home page must show 2 hyper links : 	
+		i. Add Cricket Team
+		ii. View Cricket Team
+	-When the 1st link is clicked, a page must be rendered showing HTML form for accepting user input about the team along with submit button.
+	-When submit button is clicked, the application must store team data into in-memory collection and render the home page back to the client.
+	-When the 2nd link is clicked, a page must be rendered which shows HTML form asking for team ID  along with submit button.
+	-When submit button is clicked, the application must search for the team against ID into in-memory collection and render the details of that team in the result page.
+	-The result page must display appropriate message if the team ID is invalid.
+	-The result must also provide a hyper link so that user can click the same and come back on home page.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
