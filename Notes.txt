@@ -811,7 +811,7 @@ Working with metadata without XML :
 
 				Step 2 : Create a configuration metadata specific class.
 					- The 'configuration' class provides relevant methods to handle configuration information.
-						e.g- setProperties(): Accepts a list of properties in the form of           										'java.util.Properties' class object.
+						e.g- setProperties(): Accepts a list of properties in the form of  'java.util.Properties' class object.
 
 					- addAnnotationClass: Accepts a reference of type -
 					               java.lang.Class for the entity class type.
@@ -1552,6 +1552,200 @@ Task :
 	-The result page must display appropriate message if the team ID is invalid.
 	-The result must also provide a hyper link so that user can click the same and come back on home page.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Spring REST :		(6-12-2024)
+	-Spring Framework provides a module Spring REST that is used for building REST APIs. 
 
+	-REST stands for Representational State Transfer.
+	-It is one kind of a Web Service and hence it is also called as : Restful Web Service.
 
+	-What is Web Service ? 
+		Web Service is a software system designed to have machine-to-machine inter-operable communication over the network.
+			1. Machine-to-Machine : Applications hosted on different machines can communicate with each other.
+			2. Inter-Operable Communication : Applications developed using different technologies, running on different platforms can communicate with each other.
+			3. Over the Network : Since applications are hosted on different machines, they communicate using some network protocol.
+	-Communication in Web Service : 
+		-The communication in Web Service standards takes place via some network protocol which is also reffered as a remote protocol.
+		-Since the communication may happen between two applications developed using two different technologies, running on two different operating systems, the data must be exchanged using some common format which is understood by both the applications.
+		-It is the text format.
+		-Even though text format brings inter-operability, it has one drawback : It is unstructured.
+			-This can be resolved using XML.
+			-It stores data in text format and it is structured.			
+			-Therefore it is used as a medium for data exchange.
+	-Types of Web Services : 
+		Web Services are mainly of two types : 
+			1. SOAP based :
+				-It stands for Simple Object Access Protocol.
+				-It is a standard used to have cross platform applications interaction.
+				-It uses XML as a medium for data exchange and HTTP for data transfer.
+				-Therefore it is a combination of XML and HTTP.
+					e.g., SOAP = XML + HTTP
+				-SOAP based web services are in use for the last two decades or even more than that.
+			
+			2. Restful : 
+				-In the last 7 to 8 years, one more type of web service is in used and it got wide acceptance due to its simplicity.
+				-It is called as Restful Web Service.
+				-It emphasized upon informatio-centric architecture.
+				-It is completely based upon plain HTTP protocol.
+				-The resource which contains an information is reffered as REST resource.
+				-The URL that is used to work with REST resources is called as REST End point.
+
+	-Understanding REST : 
+		-REST stands for Representational State Transfer.
+		-Representational : 
+			-It emphasizes upon representing the state of the resource.
+			-When a client makes a request for some data, server accepts the request and populates a data from some data store.
+			-Assuming the technology used for building REST API is Java, the populated data is stored inside a Java object.
+			-That data is sent back to client along with HTTP response.
+			-The client consumes that data in any format which is suitable to the client itself.
+			-There are several formats in which data can be consumed but the most commonly used format is JSON.
+			-JSON stands for Java Script Object Notation.
+			-It is a format which can be easily processed using Java Script oriented technologies.
+				e.g., 	Plain Java Script (Vanilla JS)
+					Angular
+					React 
+					Vue JS
+		
+		-State : 
+			-It encapsulates current values available in the resource.
+			-The state of the resource is populated on one side and made available on another side.
+
+		-Transfer : 
+			-The state populated on one side is to be made available on another side. This is done by using Transfer operation.
+			-If it is populated on server, it is transferred towards client via HTTP response.
+			-If it is populated on client, it is transferred towards server via HTTP request.
+-------------------------------------------------------------------------------------------------------------------------
+Implementing REST API : 
+	-Since REST APIs are completely based upon HTTP protocol and like SOAP based web services they are inter-operable, they can be implemented using any technology like : Java, .net, python and even NodeJS.
+
+-REST API using Java : 
+	-Java is one of the popular programming languages meant for developing real time business applications.
+	-It also provides support for developing REST APIs.
+	-There are several options for developing REST API using Java.
+		1. Jersey Framework : 
+			-It is an open source Java based framework used to build REST API.
+			-It is an implementation of JAX-RS specification.
+			-JAX-RS (Java API extension of Restful Services).
+			
+		2. Spring MVC Framework  :
+			-It is a module or a framework provided by Spring team that is meant for developing web applications.
+			-Apart from web applications, it can be used to build REST APIs as well.
+			-This approach is especially used when REST resources are to be combined with existing web application.
+
+		3. Spring Boot Framework : 
+			-It is an extension to Spring Framework.
+			-It provides awesome support for implementing REST API.
+			-It is especially used when the focus in only upon building REST APIs.
+-------------------------------------------------------------------------------------------------------------------------
+REST API using Spring Boot : 
+	-There are several options available for building REST API using Spring Boot.
+		1. Spring Boot Starters : 
+			-There are some built-in starter projects meant for developing REST API.
+			-Some IDEs provide built-in plug-ins for these starters.
+			e.g., STS (Spring Tools Suite)
+				
+		2. Spring Boot CLI : 
+			-It is a command line interface used for building Spring Boot projects for the implementation of REST APIs.
+
+		3. Spring Initializer : 
+			-It is a web interface used to configure Spring Boot project online and then it allows to download the same and further that project can be used to implement REST API.
+-------------------------------------------------------------------------------------------------------------------------
+Getting started with Spring Boot : 
+	Step 1 : Open web browser and access Spring Initializer using URL : 'start.spring.io'
+
+	Step 2 : Enter all the project specific details e.g., Type, Language, Spring Boot Version, Metadata(GroupID, ArtifactID). Select dependencies (Web, Devtools) and click "Generate" to download the zip file.
+	
+	Step 3 : Unzip the file to get project specific folder.
+
+	Step 4 : Import this project into existing Eclipse Workspace.
+-------------------------------------------------------------------------------------------------------------------------
+Understanding Spring Boot API : 
+	-The Spring Boot API mainly provides following : 
+		1. SpringBootApplication : 
+			-It is an annotation that is to be applied at the class level.
+			-It is a single annotation which is a combination of three annotations : 
+				i. @Configuration
+				ii. @ComponentScan
+				iii. @EnableAutoConfiguration
+			-This means @SpringBootApplication = @Configuration + @ComponentScan +@EnableAutoConfiguration
+
+		2. Spring Application : 
+			-It is a class that is used to bootstrap the application.
+			-It is used to launch an embedded Tomcat on a default port number : 8080
+			-It is done using its 'static' method : run()
+			-It is possible that the class which is annotated with @SpringBootApplication annotation and the class which contains main() method for bootstraping, are different.
+				e.g., @SpringBootApplication
+					public class AppConfig { ... }
+
+					public class AppMain { 
+						public static void main(...){
+							SpringApplication.run(AppConfig.class, args);
+						}
+					}
+-------------------------------------------------------------------------------------------------------------------------
+Spring Boot Benefits : 
+	1. Spring Boot implies a very simple design.
+	2. It eliminates the complexities involved about configuration.
+	3. It provides awesome support for dependency management.
+
+Getting started with REST API implementation : 
+	Step 1(Optional but preferrable) : Change the default port :
+		-The Tomcat that is embedded in Spring Boot Project by default gets started on port 8080.
+		-It is a very commonly used port number and therefore it is preferred to change it.
+		-This is done by making an entry in the configuration file : application.properties
+		-It is located under 'src/main/resources' folder.
+		
+	Step 2 : Create a REST End Point : 
+		-REST resources are made accessible to REST clients using URLs which are also called as End Points.
+		-These end points are configured with the help of methods using a simple Java class.
+		-However, since REST emphasizes upon data of the resource rather than view name, it is necessary to intimate Spring Boot that the data is being returned back and not the view name.
+		-This is done using @ResponseBody annotation.
+		-It is to be applied at the return parameter level.
+			e.g., 
+				@Controller
+				public class SpringRestController{
+					@GetMapping("/doGreet")
+					public String getData(){
+						@ResponseBody return "Hello World!";
+					}
+				}
+		-Even though @ResponseBody makes it possible to configure the resource as a REST resource, there is an alternative provided since Spring version 4.
+		-It provides an annotation : @RestController
+		-It is a single annotation that combines two annotations : @Controller + @ResponseBody
+		-It is to be applied at the class level.
+-------------------------------------------------------------------------------------------------------------------------
+URLs in Spring REST : 
+	-URLs in Spring REST  do not contain Context Root which is present in a typical Spring MVC based application.
+	-This is because, in Spring REST, instead of deploying the application on the web server, the web server itself gets embedded into the application.
+	-This allows applications to follow Micro-Service Architecture.
+
+Conversion between Java Object and JSON : 
+	-In REST implementation, when server sends a data towards client, a Java object gets converted into JSON.
+	-When a client sends a data towards server, a JSON gets converted into a Java object.
+	-This is taken care by a third-party library known as Jackson.
+
+Implementing Layered Architecture : 
+	-The state of the resource used in REST implementation is always maintained in some data store.
+		e.g., 
+			File System
+			RDBMS
+			NoSQL
+			LDAP (Lightweight Directory Access Protocol)
+			
+	-When a REST client makes a request towards REST API, it is necessary to interact with data store for handling various operations.
+	-In order to have a code separation, ideally it should take place using a Layered Architecture.
+	-The layered architecture consists of three layers :
+		1. Controller Layer : 
+			-It is the layer responsible for interacting with REST client.
+			-It accepts the request from REST client and generates the response.
+			-It acts as a client of Service Layer.
+			
+		2. Service Layer : 
+			-It is the layer responsible for handling business logic if any.
+			-It acts as a client of Repository Layer.
+			-It also acts as  a bridge between Controller and Repository Layer.
+
+		3. Repository Layer :
+			-It is the layer responsible for interaction with data store.
+			-It performs all the required data persistency related operations.
+			
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
