@@ -1747,5 +1747,119 @@ Implementing Layered Architecture :
 		3. Repository Layer :
 			-It is the layer responsible for interaction with data store.
 			-It performs all the required data persistency related operations.
-			
+
+	-In order to configure these layers, Spring provides relevant annotations : 
+		1. @RestController
+		2. @Service
+		3. @Repository
+-------------------------------------------------------------------------------------------------------------------------
+Working with Parameterized URLs :		(7-12-2024)
+	-In REST API, the URLs may accept one or many parameters.
+	-These parameters are configured using '{  }' notation.
+		e.g., /employees-api/{empId}		   - Retrieve employee against ID
+			/employees-api/{minSal}/{maxSal} - Retrieve employees having salaries between minSal & maxSal
+	-Once the URLs are configured with parameters, whenever a client makes a request by sending some parameter it gets bound with the placeholder mentioned in the URL denoted with '{ }' notation.
+	-In order to proceed, it is necessary to fetch the value from the placeholder and bind it with the actual local variable name declared as a receiving parameter in the request handling method.
+	-This is done using @PathVariable annotation .
+	-It is to be applied at the receiving parameter level.
+------------------------------------------------------------------------------------------------------------------------
+Sending data towards server : 
+	-Sometimes, instead of retrieving data from server, client may want to send data towards server for further processing.
+		e.g., 	Creating a new resource on server.
+	-In this case, client sends the data in the form of JSON and when it arrives on server side, it gets converted into a Java object.
+	-This is done by making a POST request.
+	-When a client send a data in the form of JSON along with HTTP request, server needs to capture that data available in the request and bind it with the actual Java object used as a receiving parameter in the request handling method.
+	-This is done using @RequestBody annotation.
+	-It is to be applied at the receiving parameter level.
+-------------------------------------------------------------------------------------------------------------------------
+Making a POST Request : 
+	-When the REST end point is configured to accept a POST request it is necessary to monitor whether it works properly or not.
+	-In real project scenario, the client which is making this POST request might be any Java Script enabled application like Angular, React, Vue and so on.
+	-In development environment, this needs to be done in more simplified manner.
+	-This is made possible using dummy or fake REST clients.
+	-There are several such REST clients available out of which 2 are frequently used : 
+		1. POSTMAN
+		2. Google's Talent API tester
+-------------------------------------------------------------------------------------------------------------------------
+Interacting with Database : 
+	-Many business application prefer database as a permanent persistent store and hence REST API can also interact with the same.
+	-If the REST API is developed using Java, there are several options available for interaction with database.
+		e.g., 
+			JDBC
+			Hibernate
+			JPA
+	-If any of these options is used, developer has to write some amount of code for handling persistency.
+	-Even though the functionalities are different, the overall code pattern remains same.
+	-Only the things get changed are : Entity type and ID type(May or May not).
+	-Since the code pattern remains same, Spring provides a seperate module to handle the code for data persistency implicitly.
+	-It is called as Spring Data JPA.
+	-It is a module which takes away the entire persistence related code from the developer.
+	-The only thing that it needs to known is the type of Entity and the type of ID.
+	-It provides an interface named as 'JpaRepository'.
+	-It is a generic interface and the actual implementation class is generated based upon the entity type and the ID type provided by the developer.
+	-Like Hibernate or JPA, Spring Data JPA also requires database configuration setup.
+		e.g., Driver Class
+			URL
+			Username
+			Password
+	-This is done by making entries into application.properties file.
+	-Once all the settings are done, it is necessary to scan the package which contains all the required artifacts if they belong to some different package from that of the configuration specific class.
+	-Using 'scanBasePackages' attribute, classes annotated with @RestController and @Service get scanned.
+	-The sub interface of JpaRepository and the entity class annotated with @Entity need to be scanned seperately.
+	-This is done by using two relevant annotations : 
+		1. @EnableJpaRepositories
+		2. @EntityScan
+-------------------------------------------------------------------------------------------------------------------------
+Updating the resource :
+	-Any time, an application may want to modify the state of the resource.
+	-In REST API, update can be done by two ways : 
+		1. Full Update : 
+			-In this case, all the feild values except ID are updated.
+			-This is implemented by making HTTP PUT request.
+
+		2. Partial Update : 
+			-In this case, some of feild values except ID are updated.
+			-This is implemented by making HTTP PATCH request.
+	-In case of Spring Data JPA, irrespective of whether it is POST, PUT or even PATCH, the JpaRepository provides a common method : save()
+	-Actually, this method is meant for performing UPSERT operation.
+-------------------------------------------------------------------------------------------------------------------------
+Working with HTTP Response : 
+	-In case of REST, the API must be implemented keeping the consumer in mind.
+	-When a client makes a request, server accepts the same and generates the response. Ideally server must generate a proper response back to the client based upon which a client can take necessary action.
+	-This is done by sending the appropriate response status.
+	-Spring provides a relevant annotation to configure the response status : @ResponseStatus
+-------------------------------------------------------------------------------------------------------------------------
+Spring Security :
+	-In any enterprise application, security plays an important role .
+	-Different types of technologies have their own security model.
+	-However up to certain extent, all the technologies implement security model using basic standards.
+	-Typically, the security is handled at two levels : 
+		1. Authentication :
+			-It is the 1st step of security.
+			-It decides whether a user is allowed to enter into the application or not.
+			-Typically, it is handled using credentials like username and password.
+
+		2. Authorization : 
+			-Once a user is authenticated, depending upon the requirements, certain privileges are granted to the users.
+			-This is called as authorization.
+	-In order to handle authentication and authorization, mainly 2 entities are used : 
+		1. Users : 
+			-These are the actual users of the application.
+			-There might be several users within the application i.e. the user count is not fixed.
+		2. Roles : 
+			-These indicate the authority given to the specific user.
+			-A single user may have multiple roles similarly a single role can be played by multiple users.
+			-The actual role varies from application to application.
+			-In a specific application the role count is fixed.
+	
+	-When the Spring Boot project with Web and Security dependencies is created, by default Spring Security Model implies authentication on all URLs.
+	-It implies authentication not only for existing URLs but also for non-existing URLs.
+	-By default, Spring Security is configured with a single user where the username is 'user' itself and the password is randomly generated password which is available in the server logs.
+	-By default, Spring Security provides four things : 
+		1. /login URL
+		2. /logout URL
+		3. Login Form
+		4. Logout Form
+	
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
