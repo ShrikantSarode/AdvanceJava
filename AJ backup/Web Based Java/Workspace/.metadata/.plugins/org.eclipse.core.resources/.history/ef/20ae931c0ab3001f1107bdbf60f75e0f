@@ -1,0 +1,12 @@
+package example.spring.mvc.model;
+
+public class CricketTeam {
+	private String teamId;
+	private String teamName;
+	private int testRanking;
+	private int odiRanking;
+	private int t20Ranking;
+	public CricketTeam() {
+		
+	}
+}

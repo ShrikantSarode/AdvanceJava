@@ -1,0 +1,13 @@
+package example.hibernate.entity;
+
+import java.util.Collection;
+
+public class Film {
+	private String filmId;
+	private String title;
+	private Collection<Song> songs;
+	public Film() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

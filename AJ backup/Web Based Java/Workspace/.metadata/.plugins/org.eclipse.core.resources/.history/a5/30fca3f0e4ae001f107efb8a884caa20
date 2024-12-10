@@ -1,0 +1,12 @@
+package example.hibernate.entity;
+
+public class Movie {
+	private String movieId;
+	private String title;
+	private String genre;
+	private int year;
+	public Movie() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

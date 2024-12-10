@@ -1,0 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<body>
+	<%--Including the resource : color.html --%>
+	<%@include file="color.html" %>
+	<%--Using a declaration section to declare a variable and define a method --%>
+	<%!
+		int val=7;
+		public String sayWelcome(String name){
+			String message = "Welcome! " + name;
+			return message;
+		}
+	%>
+</body>
+</html>

@@ -1,0 +1,5 @@
+package example.hibernate.main;
+
+public class RecordDeletionExample {
+
+}

@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<body>
+	<%--Including the resource : color.html --%>
+	<%@include file="color.html"%>
+	<%--Using a declaration section to declare a variable and define a method --%>
+	<%!int val = 7;
+
+	public String sayWelcome(String name) {
+		String message = "Welcome! " + name;
+		return message;
+	}%>
+	<%--Showing HELLO using h1 heading 5 times --%>
+	<%--Starting a 'for' loop using Scriptle --%>
+	<%
+		for(int a=1;a<=5;a++){
+	%>
+		<h1>Hello!!!</h1>
+	<%} %>
+</body>
+</html>

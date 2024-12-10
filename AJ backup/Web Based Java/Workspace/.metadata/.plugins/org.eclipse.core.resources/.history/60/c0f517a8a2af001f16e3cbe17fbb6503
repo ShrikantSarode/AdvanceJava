@@ -1,0 +1,9 @@
+package example.hibernate.entity;
+
+public class Film {
+
+	public Film() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

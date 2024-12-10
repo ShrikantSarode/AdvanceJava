@@ -1,0 +1,9 @@
+package example.spring.core.without_xml;
+
+public class JavaBasedConfigurationExample {
+
+	public static void main(String[] args) {
+		
+	}
+
+}

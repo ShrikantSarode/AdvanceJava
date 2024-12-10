@@ -1,0 +1,29 @@
+package example.spring.core.without_xml;
+
+import java.util.Collection;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration // Marks this class as a Configuration Unit
+public class SpringConfig {
+	@Bean // Marks this method as a Bean Configuration Specific Method
+	public GreetingImpl getGreetingImpl() {
+		GreetingImpl gi = new GreetingImpl();
+		return gi;
+	}
+
+	// Configuring a bean of type MessageImpl with some different ID: myMessage
+	@Bean("myMessage") // changing default ID to myMessage
+	public MessageImpl getMessageImpl() {
+		MessageImpl mi = new MessageImpl();
+		return mi;
+	}
+
+	// Configuring a bean of type: java.util.Collection
+	@Bean("allCourses")
+	public Collection<String> getCourseList() {
+		MessageImpl mi = new MessageImpl();
+		return mi;
+	}
+}

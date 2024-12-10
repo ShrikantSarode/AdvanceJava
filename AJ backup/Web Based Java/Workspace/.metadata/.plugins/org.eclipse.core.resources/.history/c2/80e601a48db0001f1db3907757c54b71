@@ -1,0 +1,16 @@
+package example.spring.core;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class SetterInjectionExample {
+
+	public static void main(String[] args) {
+		ApplicationContext context 
+			=new ClassPathXmlApplicationContext("spring-config.xml");
+		Object loadedObject = context.getBean("userBean");
+		GreetingService gs = (GreetingService) loadedObject;
+		System.out.println(gs.sayGreeting());
+	}
+
+}

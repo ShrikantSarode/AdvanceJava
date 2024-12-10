@@ -1,0 +1,28 @@
+package example.spring.mvc.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller // Marks this class as a Controller of Spring MVC Application
+public class SpringMvcController {
+	@RequestMapping("/doGreet") // Providing mapping between the URL and view
+	public String getIndexPage() {
+		System.out.println("Inside getIndexPage()");
+		return "index"; // Returning a view name
+	}
+
+	@RequestMapping("/doLogin")
+	public String getLoginPage() {
+		System.out.println("Inside getLoginPage()");
+		return "login";
+	}
+	@RequestMapping("/doValidate")
+	public String getResultPage() {
+		//This method returns one of the 2 possinle result pages : success/failure
+		System.out.println("Inside getResultPage()");
+		if(getResultPage)
+			return "login";
+		else
+			return "login";
+	}
+}

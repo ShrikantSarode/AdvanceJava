@@ -1,0 +1,16 @@
+package example.spring.rest;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController	//Combines @Controller and @ResponseBody
+public class SpringRestController {
+	@GetMapping("/doGreet")
+	public String getGreetingData() {
+		return "Hi all, Welcome to REST..."; // Returning a view name
+	}
+	@GetMapping("/showGreeting")
+	public Greeting getOneGreeting() {
+		return "Hi all, Welcome to REST..."; // Returning a view name
+	}
+}

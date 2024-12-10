@@ -1,0 +1,10 @@
+package example.spring.core.without_xml.auto_wiring;
+
+public class AutoWiringExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,11 @@
+package example.bean;
+
+public class Person {
+	private String name;
+	private int age;
+	private float weight;
+	public Person() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,10 @@
+package example.hibernate.bean;
+
+public class ActorData {
+	private String myFirstName;
+	private int myAge;
+	public ActorData() {
+		
+	}
+
+}

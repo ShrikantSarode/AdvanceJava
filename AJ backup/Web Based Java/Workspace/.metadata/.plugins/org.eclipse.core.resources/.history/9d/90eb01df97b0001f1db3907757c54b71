@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="myAddress" class="example.spring.core.Address">
+		<property name="city" value="Nashik" />
+		<property name="pinCode" value="422010" />
+	</bean>
+	<bean id="myAnotherAddress" class="example.spring.core.Address">
+		<property name="city" value="Chalisgaon" />
+		<property name="pinCode" value="424101" />
+	</bean>
+	<bean id="myCustomer" class="example.spring.core.Customer">
+		<property name="name" value="Dipali" />
+		<property name="email" value="dipali25chaudhari@gmail.com" />
+		<property name="permanentAddress" ref="myAddress"/>
+	</bean>
+</beans>

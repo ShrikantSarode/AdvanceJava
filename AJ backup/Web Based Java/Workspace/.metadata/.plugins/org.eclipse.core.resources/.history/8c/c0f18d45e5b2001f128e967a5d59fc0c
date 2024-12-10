@@ -1,0 +1,5 @@
+package example.spring.mvc.model;
+
+public class User {
+	
+}

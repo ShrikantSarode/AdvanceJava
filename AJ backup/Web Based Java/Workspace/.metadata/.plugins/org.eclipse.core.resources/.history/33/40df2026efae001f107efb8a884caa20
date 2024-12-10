@@ -1,0 +1,35 @@
+package example.hibernate.main;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import example.hibernate.entity.Movie;
+
+public class RecordInsertionExample {
+
+	public static void main(String[] args) {
+		// Configure Hibernate using 'Configuration' class.
+		Configuration conf = new Configuration();
+		conf = conf.configure();
+		// Obtain a SessionFactory using 'Configuration' class.
+		SessionFactory factory = conf.buildSessionFactory();
+		// Obtain a session using SessionFactory.
+		Session currentSession = factory.openSession();
+		// Create an entity class object.
+		Movie movieObject = new Movie("M01", "Baby", "Action", 2013);
+		// Obtain a transaction and start the same.
+		Transaction tx = currentSession.beginTransaction();
+		// Store the entity class object using Session.
+		currentSession.persist(movieObject);
+		// Commit the transaction.
+		tx.commit();
+		// Close the Session.
+		currentSession.close();
+		// Close the SessionFactory.
+		factory.close();
+		System.out.println("Record Added...");
+	}
+
+}

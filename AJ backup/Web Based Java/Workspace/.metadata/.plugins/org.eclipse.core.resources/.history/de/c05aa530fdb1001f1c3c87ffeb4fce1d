@@ -1,0 +1,26 @@
+package example.spring.aop;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.springframework.stereotype.Component;
+
+@Aspect	//Marks this class as an Aspect.
+@Component
+public class Audience {
+	@Before("")
+	public void takeSeat() {
+		System.out.println("Please take your Seats...");
+	}
+	public void turnOffMobile() {
+		System.out.println("Please turn off your mobiles...");
+	}
+	public void clap() {
+		System.out.println("Clap Clap Clap...");
+	}
+	public void demandForRefund() {
+		System.out.println("Please give my money back...");
+	}
+	public void leave() {
+		System.out.println("Bye, leaving now..!");
+	}
+}

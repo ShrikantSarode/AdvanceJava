@@ -1,0 +1,13 @@
+package example.jdbc;
+
+import example.jdbc.bean.Article;
+import example.jdbc.dao.DaoInterface;
+import example.jdbc.dao.ArticleDao;
+
+public class CreateUsingDaoExample {
+	public static void main(String[] args) {
+		DaoInterface<Article, Integer> daoRef = new ArticleDao();
+		Article rst = new Article(106, "Mainland China", "Chinese", 5);
+		daoRef.create(rst);
+	}
+}

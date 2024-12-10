@@ -1,0 +1,5 @@
+package example.spring.mvc.controller;
+
+public class SpringMvcController {
+
+}

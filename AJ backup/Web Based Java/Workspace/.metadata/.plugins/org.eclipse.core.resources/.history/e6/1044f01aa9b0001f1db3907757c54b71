@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="myEducation" class="example.spring.core.EducationInfo">
+		<property name="highestDegree" value="Nashik" />
+		<property name="grade" value="422010" />
+	</bean>
+	<bean id="myContact" class="example.spring.core.ContactInfo">
+		<property name="mobileNo" value="Nashik" />
+		<property name="emailAddress" value="422010" />
+	</bean>
+	<bean id="myProfile" class="example.spring.core.Profle">
+		<property name="candidateId" value="Nashik" />
+		<property name="name" value="422010" />
+		<property name="" />
+		<property name="" />
+	</bean>
+</beans>

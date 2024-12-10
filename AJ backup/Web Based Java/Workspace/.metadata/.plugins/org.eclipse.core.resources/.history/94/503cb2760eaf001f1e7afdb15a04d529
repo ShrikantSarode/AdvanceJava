@@ -1,0 +1,21 @@
+package example.hibernate.main;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import example.hibernate.entity.Actor;
+import example.hibernate.utils.HibernateUtilities;
+
+public class RecordRetrievalExample {
+
+	public static void main(String[] args) {
+		try (SessionFactory factory = HibernateUtilities.getSessionFactory();
+				Session session = factory.openSession();) {
+			//Loading an entity where ActorId : A03
+			Actor foundActor = session.find(Actor.class, "A03");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

@@ -1,0 +1,5 @@
+package example.spring.aop;
+
+public class Audience {
+
+}

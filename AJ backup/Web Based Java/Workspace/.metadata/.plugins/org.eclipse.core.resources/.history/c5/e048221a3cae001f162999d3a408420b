@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<body>
+	<h1>Person Entry Page</h1>
+	<form action="">
+		<pre>
+			Name : <input type="text" name="name">
+			Age : <input type="text" name="age">
+			Weight : <input type="text" name="weight">
+		</pre>
+	</form>
+</body>
+</html>

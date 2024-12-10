@@ -1,0 +1,22 @@
+package example.hibernate.main;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import example.hibernate.utils.HibernateUtils;
+
+public class RecordInsertionExample2 {
+//Standard practices
+	public static void main(String[] args) {
+		try (
+				SessionFactory factory = HibernateUtils.getSessionFactory();
+				Session session = factory.openSession();
+				)
+		{
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

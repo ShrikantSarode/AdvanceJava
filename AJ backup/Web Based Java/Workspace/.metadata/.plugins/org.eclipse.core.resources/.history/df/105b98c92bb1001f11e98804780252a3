@@ -1,0 +1,8 @@
+package example.spring.core.without_xml;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration	//Marks this class as a Configuration Unit
+public class SpringConfig {
+	
+}

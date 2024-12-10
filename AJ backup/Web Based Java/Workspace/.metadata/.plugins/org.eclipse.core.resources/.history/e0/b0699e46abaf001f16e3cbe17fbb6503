@@ -1,0 +1,22 @@
+package example.hibernate.main;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import example.hibernate.entity.Song;
+import example.hibernate.utils.HibernateConfig;
+
+public class AddSongsExample {
+
+	public static void main(String[] args) {
+		try (SessionFactory factory = HibernateConfig.getSessionFactory(); 
+				Session session = factory.openSession();) {
+			Song s1 = new Song();
+			s1.setSongID("S01");
+			s1.setTitle("Jata Kaha Hai");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

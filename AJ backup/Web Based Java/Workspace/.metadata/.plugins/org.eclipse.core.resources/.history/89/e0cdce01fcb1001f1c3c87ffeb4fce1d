@@ -1,0 +1,21 @@
+package example.spring.aop;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
+
+@Aspect	//Marks this class as an Aspect.
+@Component
+public class Audience {
+	public void takeSeat() {
+		
+	}
+	public void turnOffMobiles() {
+		
+	}
+	public void clap() {
+		
+	}
+	public void refundMoney() {
+		
+	}
+}

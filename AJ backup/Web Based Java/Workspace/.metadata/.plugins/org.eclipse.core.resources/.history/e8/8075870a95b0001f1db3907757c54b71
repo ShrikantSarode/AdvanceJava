@@ -1,0 +1,11 @@
+package example.spring.core;
+
+public class Customer {
+	private String name;
+	private String email;
+	private Address permanentAddress;
+	public Customer() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

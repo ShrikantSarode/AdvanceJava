@@ -1,0 +1,10 @@
+<html>
+<body bgcolor="aliceblue">
+<h1 style="background-color: black; color: white">
+	Welcome to Spring MVC!!!
+</h1>
+<h1>
+	In order to sign in, please <span>click here</span>
+</h1>
+</body>
+</html>

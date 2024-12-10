@@ -1,0 +1,18 @@
+package example.spring.mvc.config;
+
+import org.springframework.web.WebApplicationInitializer;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+
+public class SpringWebApplicationInitializer implements WebApplicationInitializer{
+
+	/*This class is used to configure DispatcherServlet in such a way that
+	 * it acceps all the incoming requests.
+	 */
+	@Override
+	public void onStartup(ServletContext ctx) throws ServletException {
+		
+	}
+	
+}

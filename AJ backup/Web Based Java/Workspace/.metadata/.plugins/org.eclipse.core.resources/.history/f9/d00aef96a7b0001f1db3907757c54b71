@@ -1,0 +1,9 @@
+package example.spring.core;
+
+public class EducationInfo {
+	private String highestDegree;
+	private String grade;
+	public EducationInfo() {
+		
+	}
+}

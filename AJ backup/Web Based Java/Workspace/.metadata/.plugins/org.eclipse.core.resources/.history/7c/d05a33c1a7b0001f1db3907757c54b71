@@ -1,0 +1,11 @@
+package example.spring.core;
+
+public class ContactInfo {
+	private String mobileNo;
+	private String emailAddress;
+
+	public ContactInfo() {
+		
+	}
+
+}

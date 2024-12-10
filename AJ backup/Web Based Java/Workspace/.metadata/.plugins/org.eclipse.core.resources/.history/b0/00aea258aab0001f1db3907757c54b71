@@ -1,0 +1,17 @@
+package example.spring.core;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class DependencyInjectionAssignment {
+
+	public static void main(String[] args) {
+		ApplicationContext context =
+				new ClassPathXmlApplicationContext("spring-config4.xml");
+		Object loadedObject = context.getBean("myProfile");
+		GreetingService gs = (GreetingService) loadedObject;
+		System.out.println(gs.sayGreeting());
+
+	}
+
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;book_library.controller.BookController&apos; to &apos;BookRestController&apos;&#x0D;&#x0A;- Original project: &apos;Spring_Rest_Project&apos;&#x0D;&#x0A;- Original element: &apos;book_library.controller.BookController&apos;&#x0D;&#x0A;- Renamed element: &apos;book_library.controller.BookRestController&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;BookController&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;book_library.controller{BookController.java[BookController" matchStrategy="1" name="BookRestController" qualified="false" references="true" similarDeclarations="false" stamp="1733487612727" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,5 @@
+package example.spring.rest;
+
+public class SpringRestController {
+
+}

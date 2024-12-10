@@ -1,0 +1,141 @@
+package example.jdbc.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import example.jdbc.bean.Article;
+import example.jdbc.utils.JdbcUtils;
+
+public class ArticleDao implements DaoInterface<Article, Integer>{
+	@Override
+	public Collection<Article> retriveAll() {
+		/*This method connects to DB, fetches all records, convert them into
+		 * Java Objects of Article class, puts those objects into some
+		 * collection and returns the collection
+		 */
+		Collection<Article> allArticles = new ArrayList<Article>();
+		String sqlQuery = "select * from Article_master";
+		try(
+				Connection conn = JdbcUtils.getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sqlQuery);
+				){ 
+			while(rs.next()) {
+				int articleId = rs.getInt(1);
+				String articleName = rs.getString(2);
+				String articleCategory = rs.getString(3);
+				String articleDate = rs.getString(4);
+				String articleCreator = rs.getString(5);
+				Article rst = new Article(articleId,articleName,articleCategory,articleDate,articleCreator);
+				allArticles.add(rst);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return allArticles;
+	}
+
+	@Override
+	public Article retrieveOne(Integer id) {
+		Article foundArticle = null;
+		String sqlQuery = "select * from Article_master where rest_id =?";
+		try(
+				Connection conn = JdbcUtils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
+				) {
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				int articleId = rs.getInt(1);
+				String articleName = rs.getString(2);
+				String articleCategory = rs.getString(3);
+				String articleDate = rs.getString(4);
+				String articleCreator = rs.getString(5);
+				foundArticle = new Article(articleId,articleName,articleCategory,articleDate,articleCreator);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return foundArticle;
+	}
+//-----------------------------------------------------------------------------
+	@Override
+	public void create(Article newArticle) {
+		/*This method accepts a 'Article' object: newArticle and stores it
+		 * as a record in the DB table.
+		 */
+		String sqlQuery = "insert into article_master values(?,?,?,?)";
+		try(
+				Connection conn = JdbcUtils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
+				){
+			//Extracting the values from Article object: newArticle using getter methods
+			int ArticleId = newArticle.getArticleId();
+			String ArticleName = newArticle.getName();
+			String ArticleCategory = newArticle.getCategory();
+			String articleDate = newArticle.getDateCreated();
+			String articleCreator = newArticle.getCreatorName()
+			//Susbtituting theses values in place of '?' using PreparedStatement
+			pstmt.setInt(1,ArticleId);
+			pstmt.setString(2,ArticleName);
+			pstmt.setString(3, ArticleCuisine);
+			pstmt.setInt(4, ArticleBranchCount);
+			int updateCount = pstmt.executeUpdate();
+			System.out.println(updateCount + " record inserted...");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void update(Article modifiedArticle) {
+		/*This method receives the modified state of the Article
+		 *object: modifiedArticle and reflects that state into DB.
+		 */
+		String sqlQuery = "update article_master set rest_name = ?, rest_cuisine = ?, rest_branch_count = ? where rest_id = ?";
+		try(
+				Connection conn = JdbcUtils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
+				){
+			//Capturing the modified state of Article object: modifiedArticle using getter methods
+			int ArticleId = modifiedArticle.getArticleId();
+			String ArticleName = modifiedArticle.getName();
+			String ArticleCuisine = modifiedArticle.getCuisine();
+			int ArticleBranchCount = modifiedArticle.getBranchCount();
+			//Susbtituting theses values in place of '?' using PreparedStatement
+			pstmt.setInt(4,ArticleId);
+			pstmt.setString(1,ArticleName);
+			pstmt.setString(2, ArticleCuisine);
+			pstmt.setInt(3, ArticleBranchCount);
+			int updateCount = pstmt.executeUpdate();
+			System.out.println(updateCount + " record updated...");
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Override
+	public void delete(Integer id) {
+		/*
+		 * This method performs record deletion against identity.
+		 */
+		String sqlQuery = "delete from article_master where rest_id = ?";
+		try(
+				Connection conn = JdbcUtils.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
+				){
+			pstmt.setInt(1, id);
+			int updateCount = pstmt.executeUpdate();
+			System.out.println(updateCount + " record deleted...");
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+}

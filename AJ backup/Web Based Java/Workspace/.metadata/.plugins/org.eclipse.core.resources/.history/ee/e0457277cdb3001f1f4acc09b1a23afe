@@ -1,0 +1,13 @@
+package book_library.repository;
+
+import java.util.Collection;
+
+import book_library.entity.Book;
+import book_library.store.BookStore;
+
+public class BookRepository {
+	public Collection<Book> getAllBooks() {
+		Collection<Book> allAvailableBooks = BookStore.getAllBooks();
+		return allAvailableBooks;
+	}
+}

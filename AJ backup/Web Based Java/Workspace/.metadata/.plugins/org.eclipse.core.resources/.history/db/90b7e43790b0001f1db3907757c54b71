@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="myBean" class="example.spring.core.WelcomeService" />
+	<bean id="userBean" class="example.spring.core.UserService">
+		<property name="userName" value="Dipali" />
+		<property name="userAge" value="23" />
+	</bean>
+	<bean id="userBean2" class="example.spring.core.UserService">
+	</bean>
+</beans>

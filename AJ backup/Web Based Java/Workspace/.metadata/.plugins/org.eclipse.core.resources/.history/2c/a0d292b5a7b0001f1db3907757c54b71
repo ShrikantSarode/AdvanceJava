@@ -1,0 +1,9 @@
+package example.spring.core;
+
+public class ContactInfo {
+
+	public ContactInfo() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

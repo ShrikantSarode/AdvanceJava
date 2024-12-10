@@ -1,0 +1,10 @@
+package example.spring.core;
+
+public class BeanWiringExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

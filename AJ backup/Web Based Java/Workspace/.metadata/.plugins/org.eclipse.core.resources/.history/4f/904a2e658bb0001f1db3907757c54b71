@@ -1,0 +1,32 @@
+package example.spring.core;
+
+public class UserService implements GreetingService {
+	private String userName;
+	private int userAge;
+
+	public UserService() {
+		System.out.println("Inside User Service");
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getUserAge() {
+		return userAge;
+	}
+
+	public void setUserAge(int userAge) {
+		this.userAge = userAge;
+	}
+
+	@Override
+	public String sayGreeting() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

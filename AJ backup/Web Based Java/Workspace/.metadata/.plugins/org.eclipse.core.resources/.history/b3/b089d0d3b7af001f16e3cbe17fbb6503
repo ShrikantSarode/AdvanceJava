@@ -1,0 +1,21 @@
+package example.hibernate.main;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import example.hibernate.utils.HibernateConfig;
+
+public class HqlConstructorExpressionExample {
+
+	public static void main(String[] args) {
+		try (SessionFactory factory = HibernateConfig.getSessionFactory(); 
+				Session session = factory.openSession();) {
+			String hqlQuery = "select act.firstName, act.age from Actor act";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

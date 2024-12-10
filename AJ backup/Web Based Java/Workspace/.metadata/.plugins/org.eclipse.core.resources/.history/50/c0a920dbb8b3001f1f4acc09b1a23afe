@@ -1,0 +1,12 @@
+package example.spring.rest;
+
+import java.time.LocalDate;
+
+public class Greeting {
+	private String content;
+	private LocalDate dateOfGreeting;
+	public Greeting() {
+		
+	}
+
+}

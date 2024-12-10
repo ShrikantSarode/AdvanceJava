@@ -1,0 +1,25 @@
+package example.hibernate.entity;
+
+import java.util.Collection;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+@Entity
+@Table(name="Film_Master")
+public class Film {
+	@Id
+	@Column(name="film_id")
+	private String filmId;
+	@Column(name="film_title")
+	private String title;
+	@OneToMany(cascade = CascadeType.ALL)
+	private Collection<Song> songs;
+	public Film() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

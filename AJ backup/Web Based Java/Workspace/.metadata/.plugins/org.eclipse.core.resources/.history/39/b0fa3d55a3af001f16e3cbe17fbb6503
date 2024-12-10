@@ -1,0 +1,28 @@
+package example.hibernate.entity;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+@Entity
+@Table(name="Film_Master")
+public class Film {
+	@Id
+	@Column(name="film_id")
+	private String filmId;
+	@Column(name="film_title")
+	private String title;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "film_id")
+	private Collection<Song> songs;
+	public Film() {
+		songs=new ArrayList<Song>();
+	}
+
+}

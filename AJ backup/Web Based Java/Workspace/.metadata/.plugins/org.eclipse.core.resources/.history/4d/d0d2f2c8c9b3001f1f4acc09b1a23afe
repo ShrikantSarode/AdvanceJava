@@ -1,0 +1,5 @@
+package book_library.store;
+
+public class BookStore {
+
+}

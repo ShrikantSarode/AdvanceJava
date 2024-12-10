@@ -1,0 +1,5 @@
+package example.spring.core.without_xml;
+
+public class SpringConfig {
+
+}

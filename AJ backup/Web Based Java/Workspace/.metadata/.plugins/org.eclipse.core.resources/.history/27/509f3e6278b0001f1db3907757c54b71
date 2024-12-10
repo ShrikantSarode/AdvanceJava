@@ -1,0 +1,12 @@
+package example.spring.core;
+
+import org.springframework.context.ApplicationContext;
+
+public class SpringSimpleExample {
+
+	public static void main(String[] args) {
+		//Retrieving the bean from spring-config.xml against its ID: myBean
+		ApplicationContext context = 
+	}
+
+}

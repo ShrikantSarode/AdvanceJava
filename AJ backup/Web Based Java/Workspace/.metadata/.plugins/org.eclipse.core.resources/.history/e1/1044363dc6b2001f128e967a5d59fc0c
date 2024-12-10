@@ -1,0 +1,10 @@
+package example.spring.mvc.config;
+
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+public class SpringMvcConfigurer implements WebMvcConfigurer{
+	/*
+	 * This class is used to configure the application in order to acquire Spring 
+	 * MVC capabilities and also a View Resolver.
+	 */
+}

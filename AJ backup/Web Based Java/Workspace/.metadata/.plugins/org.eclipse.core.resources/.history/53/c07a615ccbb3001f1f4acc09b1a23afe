@@ -1,0 +1,5 @@
+package book_library.repository;
+
+public class BookRepository {
+
+}

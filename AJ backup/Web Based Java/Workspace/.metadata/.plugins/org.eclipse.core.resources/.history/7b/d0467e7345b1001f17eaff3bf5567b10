@@ -1,0 +1,7 @@
+package another;
+
+public class AnotherTestComponent {
+	public void doTest() {
+		System.out.println("Another test component test succeeded...");
+	}
+}

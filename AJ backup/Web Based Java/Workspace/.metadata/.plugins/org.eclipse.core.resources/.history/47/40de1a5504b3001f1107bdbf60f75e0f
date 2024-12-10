@@ -1,0 +1,5 @@
+package example.spring.mvc.config;
+
+public class SpringMvcApplicationInitializer {
+
+}

@@ -1,0 +1,9 @@
+package example.spring.rest;
+
+public class Greeting {
+
+	public Greeting() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

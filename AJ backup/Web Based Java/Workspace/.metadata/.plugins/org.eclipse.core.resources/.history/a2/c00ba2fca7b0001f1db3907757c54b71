@@ -1,0 +1,13 @@
+package example.spring.core;
+
+public class Profle {
+	private int candidateId;
+	private String name;
+	private ContactInfo contactDetails;
+	private EducationInfo educationDetails;
+
+	public Profle() {
+		
+	}
+
+}

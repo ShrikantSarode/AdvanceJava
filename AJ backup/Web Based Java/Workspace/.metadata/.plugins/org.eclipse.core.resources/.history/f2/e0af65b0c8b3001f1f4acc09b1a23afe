@@ -1,0 +1,12 @@
+package book_library.entity;
+
+public class Book {
+	private int bookId;
+	private String title;
+	private String author;
+	private float price;
+	public Book() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

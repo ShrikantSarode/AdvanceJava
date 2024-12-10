@@ -1,0 +1,19 @@
+package example.hibernate.main;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import example.hibernate.utils.HibernateUtilities;
+
+public class RecordRetrievalExample {
+
+	public static void main(String[] args) {
+		try (SessionFactory factory = HibernateUtilities.getSessionFactory();
+				Session session = factory.openSession();) {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+}

@@ -1,0 +1,10 @@
+package example.hibernate.main;
+
+public class AddSongsExample {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

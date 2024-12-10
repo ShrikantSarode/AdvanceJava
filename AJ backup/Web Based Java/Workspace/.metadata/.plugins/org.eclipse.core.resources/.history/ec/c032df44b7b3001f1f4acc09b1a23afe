@@ -1,0 +1,8 @@
+package example.spring.rest;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController	//Combines @Controller and @ResponseBody
+public class SpringRestController {
+	
+}

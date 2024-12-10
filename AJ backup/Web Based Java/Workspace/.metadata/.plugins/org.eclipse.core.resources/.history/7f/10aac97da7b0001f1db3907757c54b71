@@ -1,0 +1,5 @@
+package example.spring.core;
+
+public class EducationInfo {
+
+}

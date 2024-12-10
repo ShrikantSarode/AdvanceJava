@@ -1,0 +1,7 @@
+package example.spring.core.without_xml;
+
+public class TestComponent {
+	public void doTest() {
+		System.out.println("TestComponent test succeeded...");
+	}
+}
